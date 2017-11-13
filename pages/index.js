@@ -1,13 +1,21 @@
 import React from 'react'
-import styled from 'react-emotion'
+import Link from 'next/link'
 
-const Text = styled.h1`
-`
+import withLayout from '../lib/withLayout'
 
 const IndexPage = () => (
-  <Text>
-    HI, DB
-  </Text>
+  <div className='container'>
+    <div className='row text-center'>
+      <div className='col-12'>
+        <h1>This's Index</h1>
+      </div>
+      <div className='col-12'>
+        <Link href='/login'>
+          <a className='btn btn-primary'>Login</a>
+        </Link>
+      </div>
+    </div>
+  </div>
 )
 
-export default IndexPage
+export default withLayout(IndexPage)
