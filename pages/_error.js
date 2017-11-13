@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link'
 import styled from 'react-emotion'
 
 const Page = styled.div`
@@ -11,7 +12,15 @@ const Page = styled.div`
   font-weight: 300;
 `
 
-const Error = () => <Page>Error , Hi!</Page>
+const Error = () => <Page>
+  Error , 404
+  <br />
+  <Link href='/'>
+    <a className='btn btn-primary'>
+      Back
+    </a>
+  </Link>
+</Page>
 
 Error.getInitialProps = ({ res, jsonPageRes }) => {
   const statusCode = res ? res.statusCode : jsonPageRes && jsonPageRes.status
