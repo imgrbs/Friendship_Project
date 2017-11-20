@@ -4,10 +4,9 @@ exports.up = (knex, Promise) => {
       .increments('id')
       .unsigned()
       .primary()
+    call.string('name').notNull()
     call.dateTime('created_at').notNull()
     call.dateTime('updated_at').nullable()
-
-    call.string('name').notNull()
   })
 }
 

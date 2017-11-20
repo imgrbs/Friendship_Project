@@ -1,4 +1,4 @@
 .next*
-.env*
+.env
 node_modules*
 yarn*
