@@ -38,6 +38,7 @@ export default class BaseDocument extends Document {
         <meta charSet="utf-8" />
         <link rel='icon' href='/static/favicon.ico' async />
         <link rel='stylesheet' href='/static/css/bootstrap.min.css' async />
+        <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet" async />
         {this.props.styleTags}
       </Head>
       <body>

@@ -1,11 +1,10 @@
 import React from 'react'
 
 import withLayout from '../lib/withLayout'
-
-import LoginCard from '../components/LoginCard'
+import Login from '../components/Login/index'
 
 const LoginPage = () => (
-  <LoginCard />
+  <Login />
 )
 
 export default withLayout(LoginPage)

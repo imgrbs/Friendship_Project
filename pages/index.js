@@ -1,21 +1,24 @@
 import React from 'react'
-import Link from 'next/link'
+import Router from 'next/router'
+import { lifecycle } from 'recompose'
 
 import withLayout from '../lib/withLayout'
+import Container from '../components/Core/global'
 
 const IndexPage = () => (
-  <div className='container'>
+  <Container className='container d-flex justify-content-center align-items-center'>
     <div className='row text-center'>
       <div className='col-12'>
-        <h1>This's Index</h1>
-      </div>
-      <div className='col-12'>
-        <Link href='/login'>
-          <a className='btn btn-primary'>Login</a>
-        </Link>
+        <h1>Redirect to Login..</h1>
       </div>
     </div>
-  </div>
+  </Container>
 )
 
-export default withLayout(IndexPage)
+const enchance = lifecycle({
+  async componentWillMount () {
+    await Router.push('/login')
+  }
+})
+
+export default enchance(withLayout(IndexPage))

@@ -19,6 +19,10 @@ server.use(bodyParser.json())
 const routes = require('./server/routes.js')
 server.use('/api/v1', routes)
 
+server.get('/', (req, res) => {
+  res.send('Friendship Project API')
+})
+
 // LISTEN PORT
 const PORT = process.env.PORT
 server.listen(PORT, err => {

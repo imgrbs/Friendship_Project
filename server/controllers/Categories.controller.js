@@ -1,4 +1,4 @@
-const Categories = require('../models/Categorie.model')
+const Categories = require('../models/Categories.model')
 
 let categorie
 
