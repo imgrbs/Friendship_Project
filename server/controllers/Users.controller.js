@@ -4,11 +4,18 @@ let user
 
 module.exports = {
   login: async (req, res) => {
-    user = await Users.login()
-    if (user != null) {
+    if (req.body != null) {
+      let { data } = req.body
+      user = await Users.login(data.username, data.password)
+      if (user != null) {
+        res.json({
+          status: true,
+          data: user
+        })
+      }
       res.json({
-        status: true,
-        data: user
+        status: false,
+        data: null
       })
     } else {
       res.json({

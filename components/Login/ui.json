@@ -1,0 +1,10 @@
+{
+  "username": {
+    "ui:autofocus": true,
+    "ui:title": "Username"
+  },
+  "password": {
+    "ui:widget": "password",
+    "ui:title": "รหัสผ่าน"
+  }
+}

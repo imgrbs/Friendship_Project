@@ -1,10 +1,14 @@
 import React from 'react'
 import Link from 'next/link'
+import Router from 'next/router'
 import styled from 'react-emotion'
+import Form from 'react-jsonschema-form'
 
 import colors from '../Core/colors'
-
 import axios from '../../lib/axios'
+
+import schema from './schema.json'
+import ui from './ui.json'
 
 const Container = styled.div`color: #666;`
 
@@ -24,57 +28,39 @@ class LoginCard extends React.Component {
     password: ''
   }
 
-  handlerUsername = async props => {
-    await this.setState({
-      username: props.target.value
+  handler = props => {
+    this.setState({
+      ...props.formData
     })
   }
 
-  handlerPassword = async props => {
-    await this.setState({
-      password: props.target.value
+  sended = async () => {
+    await axios.post(`/login`, {
+      data: {
+        ...this.state
+      }
     })
-  }
-
-  sended = () => {
-    axios
-      .post(`/login`, {
-        data: {
-          ...this.state
-        }
-      })
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => console.log(err))
+    .then(data => {
+      Router.push('/dashboard')
+    })
+    .catch(err => console.log(err))
   }
 
   render() {
     let { username, password } = this.state
     return (
       <Card className="card">
-        <h4 className="card-title text-center">Login</h4>
-        <form className="card-text">
-          <div className="form-group">
-            <label htmlFor="usr">Username</label>
-            <input
-              type="text"
-              className="form-control"
-              id="usr"
-              onChange={e => this.handlerUsername(e)}
-              value={username}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="pwd">Password</label>
-            <input
-              type="password"
-              className="form-control"
-              id="pwd"
-              onChange={e => this.handlerPassword(e)}
-              value={password}
-            />
-          </div>
+        <Form
+          method="post"
+          schema={schema}
+          uiSchema={ui}
+          // ObjectFieldTemplate={ObjectFieldTemplate}
+          // FieldTemplate={CustomFieldTemplate}
+          showErrorList={false}
+          onChange={this.handler}
+          onSubmit={this.sended}
+          formData={this.state}
+        >
           <button type="submit" className="col-12 btn btn-primary">
             <span>Login</span>
           </button>
@@ -83,7 +69,7 @@ class LoginCard extends React.Component {
               <a>Register</a>
             </Link>
           </RegisterBtn>
-        </form>
+        </Form>
       </Card>
     )
   }

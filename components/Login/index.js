@@ -1,9 +1,10 @@
 import React from 'react'
 
+import withLayout from '../../lib/withLayout'
 import LoginCard from './LoginCard'
 
 const Login = () => (
   <LoginCard />
 )
 
-export default Login
+export default withLayout(Login)
