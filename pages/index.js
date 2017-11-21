@@ -1,6 +1,6 @@
 import React from 'react'
 import Router from 'next/router'
-import { lifecycle } from 'recompose'
+import { compose, lifecycle } from 'recompose'
 
 import withLayout from '../lib/withLayout'
 import Container from '../components/Core/global'
@@ -21,4 +21,7 @@ const enchance = lifecycle({
   }
 })
 
-export default enchance(withLayout(IndexPage))
+export default compose(
+  enchance,
+  withLayout
+)(IndexPage)
