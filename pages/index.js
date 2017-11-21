@@ -17,7 +17,7 @@ const IndexPage = () => (
 
 const enchance = lifecycle({
   async componentWillMount () {
-    await Router.push('/login')
+    Router.push('/login')
   }
 })
 
