@@ -31,9 +31,9 @@
   },
   "scripts": {
     "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "server": "nodemon server"
+    "build": "NODE_ENV=production next build",
+    "start": "NODE_ENV=production next start",
+    "server": "NODE_ENV=production nodemon server"
   },
   "devDependencies": {
     "babel-plugin-emotion": "^8.0.9",

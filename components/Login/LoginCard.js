@@ -10,8 +10,6 @@ import axios from '../../lib/axios'
 import schema from './schema.json'
 import ui from './ui.json'
 
-const Container = styled.div`color: #666;`
-
 const Card = styled.div`
   width: 20rem;
   border: 1px solid ${colors.background};
@@ -35,15 +33,16 @@ class LoginCard extends React.Component {
   }
 
   sended = async () => {
-    await axios.post(`/login`, {
-      data: {
-        ...this.state
-      }
-    })
-    .then(data => {
-      Router.push('/dashboard')
-    })
-    .catch(err => console.log(err))
+    await axios
+      .post(`/login`, {
+        data: {
+          ...this.state
+        }
+      })
+      .then(data => {
+        Router.push('/dashboard')
+      })
+      .catch(err => console.log(err))
   }
 
   render() {
