@@ -18,17 +18,22 @@ const Card = styled.div`
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.08);
 `
 
-const RegisterBtn = styled.div`margin-top: 0.5em;`
+const ErrorMsg = styled.div`
+  color: ${colors.red};
+  font-size: 0.9em;
+  text-align: center;
+  margin: -15px 0 15px;
+`
 
 class LoginCard extends React.Component {
   state = {
-    username: '',
-    password: ''
+    err: ''
   }
 
   handler = props => {
     this.setState({
-      ...props.formData
+      ...props.formData,
+      err: ''
     })
   }
 
@@ -39,14 +44,20 @@ class LoginCard extends React.Component {
           ...this.state
         }
       })
-      .then(data => {
-        Router.push('/dashboard')
+      .then( ({data}) => {
+        if (data.data[0]) {
+          Router.push('/dashboard')
+        } else {
+          this.setState({
+            err: 'username or password incorrect!'
+          })
+        }
       })
       .catch(err => console.log(err))
   }
 
   render() {
-    let { username, password } = this.state
+    let { username, password, err } = this.state
     return (
       <Card className="card">
         <Form
@@ -60,14 +71,10 @@ class LoginCard extends React.Component {
           onSubmit={this.sended}
           formData={this.state}
         >
+          <ErrorMsg>{`${err ? err:''}`}</ErrorMsg>
           <button type="submit" className="col-12 btn btn-primary">
             <span>Login</span>
           </button>
-          <RegisterBtn className="col-12 text-center">
-            <Link href="/register">
-              <a>Register</a>
-            </Link>
-          </RegisterBtn>
         </Form>
       </Card>
     )
