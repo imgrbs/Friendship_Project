@@ -1,9 +1,10 @@
 import React from 'react'
 
 import withSidebar from '../../lib/withSidebar'
+import { DashboardEnchance } from '../Core/global'
 
 const DashboardPage = () => (
-  <main className='col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3'>
+  <DashboardEnchance>
     <h1>Dashboard</h1>
 
     <section className='row text-center placeholders'>
@@ -76,7 +77,7 @@ const DashboardPage = () => (
         </tbody>
       </table>
     </div>
-  </main>
+  </DashboardEnchance>
 )
 
 export default withSidebar(DashboardPage)

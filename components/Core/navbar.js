@@ -1,34 +1,33 @@
 import React from 'react'
+import styled from 'react-emotion'
+import Router from 'next/router'
+import { withProps } from 'recompose' 
 
-const Navbar = () => (
-  <nav className='navbar navbar-toggleable-md navbar-light bg-faded'>
+const Nav = styled.nav`
+  height: 56px;
+`
+
+const handler = () => {
+  setTimeout(() => {
+    Router.push('/')
+  }, 100)
+}
+
+const Navbar = ({handler}) => (
+  <Nav className='navbar navbar-expand-lg fixed-top'>
     <a className='navbar-brand' href='#'>
-      Navbar
+      Friendship System
     </a>
-
-    <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-      <ul className='navbar-nav mr-auto'>
-        <li className='nav-item active'>
-          <a className='nav-link' href='#'>
-            Home <span className='sr-only'>(current)</span>
-          </a>
-        </li>
-        <li className='nav-item'>
-          <a className='nav-link' href='#'>
-            Link
-          </a>
-        </li>
-        <li className='nav-item'>
-          <a className='nav-link disabled' href='#'>
-            Disabled
-          </a>
-        </li>
-      </ul>
-      <button className='btn btn-outline-success my-2 my-sm-0' type='submit'>
-        Search
+    <div className='justify-content-flex-end ml-auto form-inline my-2 my-lg-0'>
+      <button onClick={handler} className='btn btn-danger my-2 my-sm-0'>
+        Logout
       </button>
     </div>
-  </nav>
+  </Nav>
 )
 
-export default Navbar
+const omitProps = withProps({
+  handler: handler
+})
+
+export default omitProps(Navbar)
