@@ -39,6 +39,8 @@ export default class BaseDocument extends Document {
         <link rel='stylesheet' href='/static/css/bootstrap.min.css' async />
         <link rel='stylesheet' href='/static/css/font-awesome.min.css' async />
         <link rel='stylesheet' href='/static/css/fonts.css' async />
+        <link rel='stylesheet' href='/static/css/animate.css' async />
+        <link rel='stylesheet' href='/static/css/react-table.css' async />
         <style dangerouslySetInnerHTML={{ __html: this.props.css }} />
       </Head>
       <body>

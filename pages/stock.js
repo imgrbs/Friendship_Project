@@ -1,7 +1,9 @@
 import React from 'react'
 
+import Stock from '../components/Stock/index'
+
 const StockPage = () => (
-  <div>Stock</div>
+  <Stock />
 )
 
 export default StockPage

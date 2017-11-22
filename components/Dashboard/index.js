@@ -5,7 +5,7 @@ import { DashboardEnchance } from '../Core/global'
 
 const DashboardPage = () => (
   <DashboardEnchance>
-    <h1>Dashboard</h1>
+    <h2>Dashboard</h2>
 
     <section className='row text-center placeholders'>
       <div className='col-6 col-sm-3 placeholder'>

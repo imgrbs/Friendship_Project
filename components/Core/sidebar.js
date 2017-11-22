@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import styled from 'react-emotion'
+import Router from 'next/router'
 import { compose, lifecycle, withState } from 'recompose'
 
 const items = [
@@ -39,7 +39,7 @@ const state = withState('pathname', 'setPath', '')
 const enchance = lifecycle({
   async componentWillMount () {
     const { setPath } = await this.props
-    setPath(location.pathname)
+    setPath(Router.pathname)
   }
 })
 

@@ -2,8 +2,10 @@ import React from 'react'
 
 import withSidebar from '../../lib/withSidebar'
 
+import GraphList from './GraphList'
+
 const Analytic = () => (
-  <div>Analytic</div>
+  <GraphList />
 )
 
 export default withSidebar(Analytic)

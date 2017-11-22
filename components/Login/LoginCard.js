@@ -68,7 +68,8 @@ class LoginCard extends React.Component {
         <Form
           method="post"
           schema={schema}
-          uiSchema={ui} // ObjectFieldTemplate={ObjectFieldTemplate}
+          uiSchema={ui}
+          // ObjectFieldTemplate={ObjectFieldTemplate}
           // FieldTemplate={CustomFieldTemplate}
           showErrorList={false}
           onChange={this.handler}

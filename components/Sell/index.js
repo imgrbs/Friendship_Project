@@ -2,8 +2,10 @@ import React from 'react'
 
 import withSidebar from '../../lib/withSidebar'
 
+import Seller from '../Sell/Seller'
+
 const Sell = () => (
-  <div>Sell</div>
+  <Seller />
 )
 
 export default withSidebar(Sell)
