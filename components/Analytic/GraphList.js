@@ -1,5 +1,5 @@
 import React from 'react'
-import { Bar, Line, Pie } from 'react-chartjs-2'
+import { Pie } from 'react-chartjs-2'
 import { withState, compose } from 'recompose'
 
 import { DashboardEnchance } from '../Core/global'
@@ -37,8 +37,6 @@ const GraphList = ({ chartData }) => (
     <div className='container'>
       <div className='row'>
         <Pie data={chartData} />
-        <Line data={chartData} />
-        <Bar data={chartData} />
       </div>
     </div>
   </DashboardEnchance>
