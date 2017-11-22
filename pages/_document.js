@@ -37,7 +37,8 @@ export default class BaseDocument extends Document {
         <meta charSet="utf-8" />
         <link rel='icon' href='/static/favicon.ico' async />
         <link rel='stylesheet' href='/static/css/bootstrap.min.css' async />
-        <link href="https://fonts.googleapis.com/css?family=Prompt" rel="stylesheet" async />
+        <link rel='stylesheet' href='/static/css/font-awesome.min.css' async />
+        <link rel='stylesheet' href='/static/css/fonts.css' async />
         <style dangerouslySetInnerHTML={{ __html: this.props.css }} />
       </Head>
       <body>

@@ -27,7 +27,8 @@ const ErrorMsg = styled.div`
 
 class LoginCard extends React.Component {
   state = {
-    err: ''
+    err: '',
+    loading: false
   }
 
   handler = props => {
@@ -38,18 +39,22 @@ class LoginCard extends React.Component {
   }
 
   sended = async () => {
+    await this.setState({
+      loading: !this.state.loading
+    })
     await axios
       .post(`/login`, {
         data: {
           ...this.state
         }
       })
-      .then( ({data}) => {
+      .then(({ data }) => {
         if (data.data[0]) {
           Router.push('/dashboard')
         } else {
           this.setState({
-            err: 'username or password incorrect!'
+            err: 'username or password incorrect!',
+            loading: !this.state.loading
           })
         }
       })
@@ -63,17 +68,25 @@ class LoginCard extends React.Component {
         <Form
           method="post"
           schema={schema}
-          uiSchema={ui}
-          // ObjectFieldTemplate={ObjectFieldTemplate}
+          uiSchema={ui} // ObjectFieldTemplate={ObjectFieldTemplate}
           // FieldTemplate={CustomFieldTemplate}
           showErrorList={false}
           onChange={this.handler}
           onSubmit={this.sended}
           formData={this.state}
         >
-          <ErrorMsg>{`${err ? err:''}`}</ErrorMsg>
-          <button type="submit" className="col-12 btn btn-primary">
-            <span>Login</span>
+          <ErrorMsg>{`${err ? err : ''}`}</ErrorMsg>
+          <button
+            type="submit"
+            className={`col-12 btn btn-primary ${this.state.loading
+              ? 'disabled'
+              : ''}`}
+          >
+            {`${this.state.loading ? (
+              <span>Login</span>
+            ) : (
+              <i class="fa fa-circle-o-notch fa-spin" />
+            )}`}
           </button>
         </Form>
       </Card>

@@ -1,26 +1,37 @@
 import React from 'react'
 import Link from 'next/link'
 import styled from 'react-emotion'
+import { withProps } from 'recompose'
 
-const Page = styled.div`
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  font-family: Roboto, sans-serif;
-  font-weight: 300;
+import Container from '../components/Core/global'
+import colors from '../components/Core/colors'
+
+const StyledContainer = styled(Container)`
+  background: ${colors.background};
+`
+const StatusMsg = styled.span`
+  color: ${colors.red};
 `
 
-const Error = () => <Page>
-  Error , 404
-  <br />
-  <Link href='/'>
-    <a className='btn btn-primary'>
-      Back
-    </a>
-  </Link>
-</Page>
+const Page = withProps({
+  className: 'd-flex justify-content-center align-items-center flex-column'
+})(StyledContainer)
+
+
+const Error = ({statusCode}) => (
+  <Page>
+    <div className="container">
+      <div className="row">
+        <div className="col-12 text-center">
+          <h3>Error, <StatusMsg>{statusCode}</StatusMsg></h3>
+          <Link href="/">
+            <a className="col-4 btn btn-primary btn-lg">Back</a>
+          </Link>
+        </div>
+      </div>
+    </div>
+  </Page>
+)
 
 Error.getInitialProps = ({ res, jsonPageRes }) => {
   const statusCode = res ? res.statusCode : jsonPageRes && jsonPageRes.status

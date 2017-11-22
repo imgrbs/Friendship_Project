@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'react-emotion'
 import Router from 'next/router'
-import { withProps } from 'recompose' 
+import { withProps } from 'recompose'
 
 const Nav = styled.nav`
   height: 56px;

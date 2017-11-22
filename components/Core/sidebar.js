@@ -1,6 +1,38 @@
 import React from 'react'
 import Link from 'next/link'
-import {compose, lifecycle, withState} from 'recompose'
+import styled from 'react-emotion'
+import { compose, lifecycle, withState } from 'recompose'
+
+const items = [
+  {
+    link: '/dashboard',
+    name: 'Overview'
+  },
+  {
+    link: '/sell',
+    name: 'Sell'
+  },
+  {
+    link: '/stock',
+    name: 'Stock'
+  },
+  {
+    link: '/analytic',
+    name: 'Analytic'
+  },
+  {
+    link: '/setting',
+    name: 'Setting'
+  }
+]
+
+const NavItem = ({ link, pathname, name }) => (
+  <Link href={link}>
+    <a className={`nav-link ${pathname === link ? 'active' : ''}`} href='#'>
+      {name}
+    </a>
+  </Link>
+)
 
 const state = withState('pathname', 'setPath', '')
 
@@ -11,37 +43,12 @@ const enchance = lifecycle({
   }
 })
 
-const Sidebar = props => (
+const Sidebar = ({ pathname }) => (
   <nav className='col-3 col-md-2 hidden-xs-down bg-faded sidebar'>
     <ul className='nav nav-pills flex-column'>
-      <li className='nav-item'>
-        <Link href={`/dashboard`}>
-          <a className={`nav-link ${props.pathname === '/dashboard' ? 'active' : ''}`} href='#'>
-            Overview
-          </a>
-        </Link>
-      </li>
-      <li className='nav-item'>
-        <Link href={`/sell`}>
-          <a className={`nav-link ${props.pathname === '/sell' ? 'active' : ''}`} href='#'>
-            Sell
-          </a>
-        </Link>
-      </li>
-      <li className='nav-item'>
-        <Link href={`/analytic`}>
-          <a className={`nav-link ${props.pathname === '/analytic' ? 'active' : ''}`} href='#'>
-            Analytics
-          </a>
-        </Link>
-      </li>
-      <li className='nav-item'>
-        <Link href={`/setting`}>
-          <a className={`nav-link ${props.pathname === '/setting' ? 'active' : ''}`} href='#'>
-            Setting
-          </a>
-        </Link>
-      </li>
+      {items.map((props, key) => (
+        <NavItem key={key} pathname={pathname} {...props} />
+      ))}
     </ul>
   </nav>
 )
