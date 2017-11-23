@@ -83,11 +83,11 @@ class LoginCard extends React.Component {
               ? 'disabled'
               : ''}`}
           >
-            {`${this.state.loading ? (
-              <span>Login</span>
-            ) : (
-              <i class="fa fa-circle-o-notch fa-spin" />
-            )}`}
+            {
+              !this.state.loading
+              ? ( <span>Login</span>)
+              : (<i className="fa fa-circle-o-notch fa-spin" />)
+            }
           </button>
         </Form>
       </Card>
