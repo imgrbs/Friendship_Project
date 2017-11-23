@@ -64,7 +64,7 @@ class LoginCard extends React.Component {
   render() {
     let { username, password, err } = this.state
     return (
-      <Card className="card">
+      <Card className="card animated fadeInUp">
         <Form
           method="post"
           schema={schema}

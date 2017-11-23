@@ -5,30 +5,36 @@ import { compose, lifecycle, withState } from 'recompose'
 
 const items = [
   {
+    icon: 'fa-television',
     link: '/dashboard',
     name: 'Overview'
   },
   {
+    icon: 'fa-cart-plus',
     link: '/sell',
     name: 'Sell'
   },
   {
+    icon: 'fa-archive',
     link: '/stock',
     name: 'Stock'
   },
   {
+    icon: 'fa-area-chart',
     link: '/analytic',
     name: 'Analytic'
   },
   {
+    icon: 'fa-cog',
     link: '/setting',
-    name: 'Setting'
+    name: 'User Setting'
   }
 ]
 
-const NavItem = ({ link, pathname, name }) => (
+const NavItem = ({ icon, link, pathname, name }) => (
   <Link href={link}>
     <a className={`nav-link ${pathname === link ? 'active' : ''}`} href='#'>
+      <i className={`fa ${icon} mr-2`} aria-hidden='true' />
       {name}
     </a>
   </Link>

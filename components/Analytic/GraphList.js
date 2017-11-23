@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pie } from 'react-chartjs-2'
+import { Line } from 'react-chartjs-2'
 import { withState, compose } from 'recompose'
 
 import { DashboardEnchance } from '../Core/global'
@@ -8,7 +8,7 @@ const state = withState('chartData', 'setChart', {
   labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
   datasets: [
     {
-      label: '# of Votes',
+      label: 'Benefit of Day',
       data: [12, 19, 3, 5, 2, 3],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
@@ -36,7 +36,28 @@ const GraphList = ({ chartData }) => (
     <h2>Analytics</h2>
     <div className='container'>
       <div className='row'>
-        <Pie data={chartData} />
+        <div className='col-6'>
+          <Line
+            height={52.5}
+            width={100}
+            data={chartData}
+          />
+        </div>
+        <div className='col-6'>
+          <Line
+            height={52.5}
+            width={100}
+            data={chartData}
+            responsive={!false}
+          />
+        </div>
+        <div className='col-12'>
+          <Line
+            height={25}
+            width={100}
+            data={chartData}
+          />
+        </div>
       </div>
     </div>
   </DashboardEnchance>

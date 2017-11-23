@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'react-emotion'
 import Autocomplete from 'react-autocomplete'
 
+import colors from '../Core/colors'
 import Vending from './Vending'
 import axios from '../../lib/axios'
 
@@ -21,20 +22,28 @@ const SellingContainer = styled.div`
   max-width: 71%;
 `
 
+const ErrMsg = () => (
+  <div className="col-12 text-center">
+    <div className="alert alert-danger">
+      <div style={{color: colors.red}}>Error, Can't add empty item.</div>
+    </div>
+  </div>
+)
+
 const matchStateToTerm = (state, value) => {
   return state.product_name.toLowerCase().indexOf(value.toLowerCase()) !== -1
 }
 
-const Item = ({ id, name, price, handleRemove }) => (
+const Item = ({ id, name, price, remove, value, amount }) => (
   <tr>
-    <th scope="row">{id}</th>
+    <th scope="row">{id+1}</th>
     <td>{name}</td>
     <td>{price}</td>
     <td>
-      <input type="number" className="form-control col-3" />
+      <input min='1' onChange={e => amount(id, e.target.value)} type="number" className="form-control col-3" />
     </td>
     <td>
-      <button onClick={handleRemove(id)} className="btn btn-danger">
+      <button onClick={()=>remove(id)} className="btn btn-danger">
         Remove
       </button>
     </td>
@@ -46,9 +55,16 @@ class Selling extends React.Component {
     items: [],
     storage: [],
     value: {
+      id: '',
       name: '',
-      price: 0
-    }
+      price: 0,
+    },
+    dumpValue: {
+      id: '',
+      name: '',
+      price: 0,
+    },
+    err: false
   }
 
   async componentWillMount() {
@@ -59,22 +75,45 @@ class Selling extends React.Component {
   }
 
   handleItem = async () => {
-    let storage = await this.state.storage
-    storage.push(this.state.value)
-    await this.props.handlePrice(this.state.value.price)
-    this.setState({
-      value: {
-        name: '',
-        price: 0
-      }
-    })
+    if (!(this.state.value.name === '')) {
+      let storage = await this.state.storage
+      storage.push(this.state.value)
+      this.props.handlePrice(this.state.value.price)
+      this.setState({
+        value: {
+          id: 0,
+          name: '',
+          price: 0
+        }
+      })
+      this.setState({
+        err: false
+      })
+    } else {
+      this.setState({
+        err: true
+      })
+    }
   }
 
   handleRemove = async id => {
     let storage = await this.state.storage
-    await storage.splice(id, 0)
+    let minusPrice = -storage[id].price
+    await storage.splice(id, 1)
+    this.props.handlePrice(minusPrice)
+    this.props.handleRemove(id)
     this.setState({
       storage: storage
+    })
+  }
+
+  handleAmount = (id, value) => {
+    this.props.handleAmount(id, parseInt(value))
+  }
+
+  getItem = (val) => {
+    this.setState({
+      dumpValue: val
     })
   }
 
@@ -83,16 +122,15 @@ class Selling extends React.Component {
       <SellingContainer className="col-8">
         <h2>Seller</h2>
         <div className="row">
+          { this.state.err ? 
+            (<ErrMsg />)
+            : (null)
+          }
           <div className="col-10">
+            {this.state.amount}
             <Autocomplete
               getItemValue={item => {
-                this.setState({
-                  value: {
-                    id: item.product_id,
-                    name: item.product_name,
-                    price: item.product_price
-                  }
-                })
+                this.getItem(item)
                 return item.product_name
               }}
               items={this.state.items}
@@ -110,6 +148,19 @@ class Selling extends React.Component {
                 </List>
               )}
               value={this.state.value.name}
+              onChange={(e) => this.setState({value:{name:e.target.value}})}
+              onSelect={
+                async () => { 
+                  let {dumpValue} = this.state
+                  await this.setState({
+                    value: {
+                      id: dumpValue.product_id,
+                      name: dumpValue.product_name,
+                      price: dumpValue.product_price,
+                    }
+                  })
+                }
+              }
             />
           </div>
           <div className="col-2">
@@ -134,15 +185,18 @@ class Selling extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.storage.map(({ id, name, price }, key) => (
-                  <Item
-                    // id={id}
-                    handleRemove={this.handleRemove}
+                {this.state.storage.map(({ id, name, price }, key) => {
+                  return <Item
+                    id={key}
+                    amount={this.handleAmount}
+                    value={this.state.amount}
                     key={key}
                     name={name}
                     price={price}
+                    remove={this.handleRemove}
                   />
-                ))}
+                }
+                )}
               </tbody>
             </Table>
           </div>

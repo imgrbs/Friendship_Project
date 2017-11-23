@@ -9,7 +9,7 @@ const IndexPage = () => (
   <Container className='container d-flex justify-content-center align-items-center'>
     <div className='row text-center'>
       <div className='col-12'>
-        <h1>Redirect to Login..</h1>
+        <h1 className='animated infinite pulse'>Redirect to Login..</h1>
       </div>
     </div>
   </Container>
