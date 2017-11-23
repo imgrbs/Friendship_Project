@@ -6,7 +6,7 @@ module.exports = {
       try {
         let user = await knex
           .select('username')
-          .from('users')
+          .from('User')
           .where({
             username: usr,
             password: pwd

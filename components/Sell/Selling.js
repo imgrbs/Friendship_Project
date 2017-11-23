@@ -25,15 +25,7 @@ const matchStateToTerm = (state, value) => {
   return state.product_name.toLowerCase().indexOf(value.toLowerCase()) !== -1
 }
 
-const checkPrice = val => {
-  return val
-}
-
-const filterItem = (state, val) => {
-  return state.filter(checkPrice(val))
-}
-
-const Item = ({ id, name, price, handleClick }) => (
+const Item = ({ id, name, price, handleRemove }) => (
   <tr>
     <th scope="row">{id}</th>
     <td>{name}</td>
@@ -42,7 +34,7 @@ const Item = ({ id, name, price, handleClick }) => (
       <input type="number" className="form-control col-3" />
     </td>
     <td>
-      <button onClick={handleClick} className="btn btn-danger">
+      <button onClick={handleRemove(id)} className="btn btn-danger">
         Remove
       </button>
     </td>
@@ -56,8 +48,7 @@ class Selling extends React.Component {
     value: {
       name: '',
       price: 0
-    },
-    totalPrice: 0
+    }
   }
 
   async componentWillMount() {
@@ -70,11 +61,20 @@ class Selling extends React.Component {
   handleItem = async () => {
     let storage = await this.state.storage
     storage.push(this.state.value)
-    console.log(this.state.storage)
+    await this.props.handlePrice(this.state.value.price)
     this.setState({
-      totalPrice: this.state.totalPrice + this.state.price,
-      value: {},
-      price: 0
+      value: {
+        name: '',
+        price: 0
+      }
+    })
+  }
+
+  handleRemove = async id => {
+    let storage = await this.state.storage
+    await storage.splice(id, 0)
+    this.setState({
+      storage: storage
     })
   }
 
@@ -86,15 +86,15 @@ class Selling extends React.Component {
           <div className="col-10">
             <Autocomplete
               getItemValue={item => {
-                  this.setState({
-                    value : {
-                      name: item.product_name,
-                      price: item.product_price
-                    }
-                  })
-                  return item.product_name
-                }
-              }
+                this.setState({
+                  value: {
+                    id: item.product_id,
+                    name: item.product_name,
+                    price: item.product_price
+                  }
+                })
+                return item.product_name
+              }}
               items={this.state.items}
               shouldItemRender={matchStateToTerm}
               wrapperStyle={{
@@ -110,16 +110,13 @@ class Selling extends React.Component {
                 </List>
               )}
               value={this.state.value.name}
-              onChange={e => {
-                // this.setState({ value: { name: e.target.value } })
-              }}
-              onSelect={val => {
-                // this.setState({ value: { name: val } })
-              }}
             />
           </div>
           <div className="col-2">
-            <button onClick={this.handleItem} className="btn btn-primary col-12">
+            <button
+              onClick={this.handleItem}
+              className="btn btn-primary col-12"
+            >
               Add
             </button>
           </div>
@@ -137,11 +134,15 @@ class Selling extends React.Component {
                 </tr>
               </thead>
               <tbody>
-              {
-                this.state.storage.map(
-                  ({name, price}, key) => <Item key={key} name={name} price={price} />
-                )
-              }
+                {this.state.storage.map(({ id, name, price }, key) => (
+                  <Item
+                    // id={id}
+                    handleRemove={this.handleRemove}
+                    key={key}
+                    name={name}
+                    price={price}
+                  />
+                ))}
               </tbody>
             </Table>
           </div>
