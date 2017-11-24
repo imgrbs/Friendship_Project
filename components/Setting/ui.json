@@ -1,0 +1,29 @@
+{
+  "username": {
+    "ui:autofocus": true
+  },
+  "password": {
+    "ui:widget": "password"
+  },
+  "firstName": {
+    
+  },
+  "lastName": {
+    
+  },
+  "role": {
+    
+  },
+  "email": {
+    "ui:widget": "email"
+  },
+  "telno": {
+
+  },
+  "bossId": {
+    "ui:widget": "updown"
+  },
+  "address": {
+    "ui:widget": "textarea"
+  }
+}

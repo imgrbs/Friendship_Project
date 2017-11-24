@@ -9,6 +9,8 @@ const BillsController = require('./controllers/Bills.controller')
 // User
 // ============================================================
 router.route('/login').post(UsersController.login)
+router.route('/users/add').post(UsersController.create)
+router.route('/users/selfjoin').get(UsersController.getAllSelfJoin)
 
 // ============================================================
 // Category

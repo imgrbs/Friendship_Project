@@ -1,12 +1,15 @@
 import React from 'react'
 
 import { DashboardEnchance } from '../Core/global'
+import UserTable from './UserTable'
+import UserForm from './UserForm'
 
 const Block = () => (
   <DashboardEnchance>
-    <h2>Setting</h2>
-    <h2>Add User</h2>
-    <h2>All Users</h2>
+    <h2>User</h2>
+    <UserForm />
+    <h4>All Users</h4>
+    <UserTable />
   </DashboardEnchance>
 )
 

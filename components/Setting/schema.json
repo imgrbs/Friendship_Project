@@ -1,0 +1,60 @@
+{
+  "title": "Add User",
+  "type": "object",
+  "required": [
+    "username",
+    "password"
+  ],
+  "properties": {
+    "username": {
+      "type": "string",
+      "title": "Username",
+      "minLength": 3
+    },
+    "password": {
+      "type": "string",
+      "title": "password",
+      "minLength": 3
+    },
+    "firstName": {
+      "type": "string",
+      "title": "First Name",
+      "minLength": 3
+    },
+    "lastName": {
+      "type": "string",
+      "title": "Last Name",
+      "minLength": 3
+    },
+    "role": {
+      "type": "string",
+      "title": "Role",
+      "minLength": 3
+    },
+    "email": {
+      "type": "string",
+      "title": "Email",
+      "minLength": 3
+    },
+    "telno": {
+      "type": "string",
+      "title": "Tel.",
+      "minLength": 3
+    },
+    "bossId": {
+      "type": "number",
+      "title": "Boss ID",
+      "minLength": 3
+    },
+    "nationId": {
+      "type": "string",
+      "title": "Nation ID",
+      "minLength": 13
+    },
+    "address": {
+      "type": "string",
+      "title": "Address",
+      "minLength": 3
+    }
+  }
+}

@@ -49,7 +49,9 @@ class LoginCard extends React.Component {
         }
       })
       .then(({ data }) => {
-        if (data.data[0]) {
+        if (data.data) {
+          localStorage.setItem('id', data.data.employee_id)
+          localStorage.setItem('user', JSON.stringify(data.data))
           Router.push('/dashboard')
         } else {
           this.setState({
@@ -69,8 +71,6 @@ class LoginCard extends React.Component {
           method="post"
           schema={schema}
           uiSchema={ui}
-          // ObjectFieldTemplate={ObjectFieldTemplate}
-          // FieldTemplate={CustomFieldTemplate}
           showErrorList={false}
           onChange={this.handler}
           onSubmit={this.sended}

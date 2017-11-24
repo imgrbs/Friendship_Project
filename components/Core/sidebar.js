@@ -25,9 +25,9 @@ const items = [
     name: 'Analytic'
   },
   {
-    icon: 'fa-cog',
+    icon: 'fa-user mr-3',
     link: '/setting',
-    name: 'User Setting'
+    name: 'User'
   }
 ]
 
