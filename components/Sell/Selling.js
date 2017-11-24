@@ -34,13 +34,19 @@ const matchStateToTerm = (state, value) => {
   return state.product_name.toLowerCase().indexOf(value.toLowerCase()) !== -1
 }
 
-const Item = ({ id, name, price, remove, value, amount }) => (
+const Item = ({ id, name, price, remove, amount, handleAmount }) => (
   <tr>
     <th scope="row">{id+1}</th>
     <td>{name}</td>
     <td>{price}</td>
     <td>
-      <input min='1' onChange={e => amount(id, e.target.value)} type="number" className="form-control col-3" />
+      <input
+        min='1'
+        value={amount}
+        onChange={e => handleAmount(id, e.target.value)}
+        type="number"
+        className="form-control col-4"
+      />
     </td>
     <td>
       <button onClick={()=>remove(id)} className="btn btn-danger">
@@ -58,11 +64,13 @@ class Selling extends React.Component {
       id: '',
       name: '',
       price: 0,
+      amount: 1
     },
     dumpValue: {
       id: '',
       name: '',
       price: 0,
+      amount: 1
     },
     err: false
   }
@@ -78,12 +86,14 @@ class Selling extends React.Component {
     if (!(this.state.value.name === '')) {
       let storage = await this.state.storage
       storage.push(this.state.value)
+      this.props.handleStorage(storage)
       this.props.handlePrice(this.state.value.price)
       this.setState({
         value: {
           id: 0,
           name: '',
-          price: 0
+          price: 0,
+          amount: 1
         }
       })
       this.setState({
@@ -107,7 +117,12 @@ class Selling extends React.Component {
     })
   }
 
-  handleAmount = (id, value) => {
+  handleAmount = async (id, value) => {
+    let storage = this.state.storage
+    storage[id].amount = parseInt(value)
+    this.setState({
+      storage: storage
+    })
     this.props.handleAmount(id, parseInt(value))
   }
 
@@ -127,7 +142,6 @@ class Selling extends React.Component {
             : (null)
           }
           <div className="col-10">
-            {this.state.amount}
             <Autocomplete
               getItemValue={item => {
                 this.getItem(item)
@@ -157,6 +171,7 @@ class Selling extends React.Component {
                       id: dumpValue.product_id,
                       name: dumpValue.product_name,
                       price: dumpValue.product_price,
+                      amount: 1
                     }
                   })
                 }
@@ -185,12 +200,12 @@ class Selling extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.storage.map(({ id, name, price }, key) => {
+                {this.state.storage.map(({ id, name, price, amount }, key) => {
                   return <Item
-                    id={key}
-                    amount={this.handleAmount}
-                    value={this.state.amount}
                     key={key}
+                    id={key}
+                    handleAmount={this.handleAmount}
+                    amount={amount}
                     name={name}
                     price={price}
                     remove={this.handleRemove}
