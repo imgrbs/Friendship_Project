@@ -10,7 +10,7 @@ const DashboardPage = () => (
     <section className='row text-center placeholders mb-3'>
       <div className='col-4 text-center'>
         <div className='card border-success mb-3'>
-          <div className='card-header'>Header</div>
+          <div className='card-header bg-success text-white'>Total Amount</div>
           <div className='card-body text-success'>
             <h4 className='card-title'>Success card title</h4>
             <p className='card-text'>
@@ -22,7 +22,7 @@ const DashboardPage = () => (
       </div>
       <div className='col-4 text-center'>
         <div className='card border-info mb-3'>
-          <div className='card-header'>Header</div>
+          <div className='card-header bg-primary text-white'>Total Sales</div>
           <div className='card-body text-primary'>
             <h4 className='card-title'>Primary card title</h4>
             <p className='card-text'>
@@ -34,7 +34,7 @@ const DashboardPage = () => (
       </div>
       <div className='col-4 text-center'>
         <div className='card border-danger mb-3'>
-          <div className='card-header'>Header</div>
+          <div className='card-header bg-danger text-white'>New Item</div>
           <div className='card-body text-secondary'>
             <h4 className='card-title'>Secondary card title</h4>
             <p className='card-text'>

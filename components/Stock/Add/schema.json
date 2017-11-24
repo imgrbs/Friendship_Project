@@ -1,0 +1,52 @@
+{
+  "definitions": {
+    "largeEnum": {
+      "type": "number",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "enumNames": [
+        "แฟร์ชั่น",
+        "เฟอร์นิเจอร์",
+        "เครื่องใช้ไฟฟ้า",
+        "อุปกรณ์เครื่องเขียน",
+        "อุปกรณ์รถยนต์",
+        "อื่นๆ",
+        "อาหาร",
+        "ของใช้ภายในบ้าน",
+        "ของใช้-อุปกรณ์ ภายในครัว"
+      ]
+    }
+  },
+  "title": "Add Item",
+  "type": "object",
+  "required": ["name", "price", "amount", "categories"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Item Name",
+      "min": 1
+    },
+    "price": {
+      "type": "number",
+      "title": "Price",
+      "minLength": 3
+    },
+    "amount": {
+      "type": "number",
+      "title": "Amount",
+      "minLength": 3
+    },
+    "categories": {
+      "$ref": "#/definitions/largeEnum"
+    }
+  }
+}

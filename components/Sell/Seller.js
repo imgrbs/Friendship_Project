@@ -11,7 +11,8 @@ class Seller extends React.Component {
     totalAmounts: [],
     totalPrices: 0,
     currentAmount : 0,
-    sellerName: ''
+    sellerName: '',
+    clear: false
   }
 
   handleAmount = async (id, amount) => {
@@ -30,6 +31,17 @@ class Seller extends React.Component {
       totalAmounts: totalAmounts
     })
     this.handleState()
+  }
+
+  clearStorage = () => {
+    this.setState({
+      storage: [],
+      totalAmounts: [],
+      totalPrices: 0,
+      currentAmount : 0,
+      clear: true
+    })
+    this.forceUpdate()
   }
 
   handleState = async () => {
@@ -67,12 +79,15 @@ class Seller extends React.Component {
       <DashboardEnchance>
         <div className="row">
           <Selling
+            storage={this.state.storage}
+            sentClear={this.state.clear}
             handleStorage={this.handleStorage}
             handlePrice={this.handlePrice}
             handleAmount={this.handleAmount}
             handleRemove={this.handleRemove}
           />
           <Vending
+            clearStorage={this.clearStorage}
             storage={this.state.storage}
             totalAmounts={this.state.currentAmount}
             totalPrices={this.state.totalPrices}

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'react-emotion'
 
+import colors from '../Core/colors'
 import axios from '../../lib/axios'
 
 const Card = styled.div`
@@ -18,7 +19,7 @@ const ModalContainer = styled.div`
   position: absolute;
   width: 100vw;
   height: 100vh;
-  background-color: #000000a3;
+  background-color: ${colors.modalBackground};
   z-index: 9999;
   left: -260%;
   top: -10%;
@@ -139,6 +140,7 @@ class Vending extends React.Component {
   }
   
   setResult = async () => {
+    this.props.clearStorage()
     this.setState({
       result: !this.state.result
     })
@@ -157,8 +159,13 @@ class Vending extends React.Component {
   }
   
   handleAccept = async data => {
-    console.log(this.props)
-    axios.post('/buy',{})
+    let storage = await {
+      employee_id: +localStorage.getItem('id'),
+      ...this.props
+    }
+    axios.post('/buy',{
+      data: storage
+    })
       .then(data => this.setResult())
       .catch(err => console.log(err))
   }

@@ -1,0 +1,17 @@
+{
+  "name": {
+    "ui:autofocus": true,
+    "ui:title": "Item Name"
+  },
+  "price": {
+    "ui:widget": "updown",
+    "ui:title": "Item Price"
+  },
+  "amount": {
+    "ui:widget": "updown",
+    "ui:title": "Item Amount"
+  },
+  "categories": {
+    "ui:title": "Item Category"
+  }
+}

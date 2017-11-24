@@ -5,6 +5,6 @@
   },
   "password": {
     "ui:widget": "password",
-    "ui:title": "รหัสผ่าน"
+    "ui:title": "Password"
   }
 }

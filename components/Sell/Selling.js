@@ -59,7 +59,6 @@ const Item = ({ id, name, price, remove, amount, handleAmount }) => (
 class Selling extends React.Component {
   state = {
     items: [],
-    storage: [],
     value: {
       id: '',
       name: '',
@@ -84,7 +83,7 @@ class Selling extends React.Component {
 
   handleItem = async () => {
     if (!(this.state.value.name === '')) {
-      let storage = await this.state.storage
+      let storage = await this.props.storage
       storage.push(this.state.value)
       this.props.handleStorage(storage)
       this.props.handlePrice(this.state.value.price)
@@ -107,22 +106,18 @@ class Selling extends React.Component {
   }
 
   handleRemove = async id => {
-    let storage = await this.state.storage
+    let storage = await this.props.storage
     let minusPrice = -storage[id].price
     await storage.splice(id, 1)
+    this.props.handleStorage(storage)
     this.props.handlePrice(minusPrice)
     this.props.handleRemove(id)
-    this.setState({
-      storage: storage
-    })
   }
-
+  
   handleAmount = async (id, value) => {
-    let storage = this.state.storage
+    let storage = this.props.storage
     storage[id].amount = parseInt(value)
-    this.setState({
-      storage: storage
-    })
+    this.props.handleStorage(storage)
     this.props.handleAmount(id, parseInt(value))
   }
 
@@ -200,18 +195,20 @@ class Selling extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.storage.map(({ id, name, price, amount }, key) => {
-                  return <Item
-                    key={key}
-                    id={key}
-                    handleAmount={this.handleAmount}
-                    amount={amount}
-                    name={name}
-                    price={price}
-                    remove={this.handleRemove}
-                  />
+                {
+                  this.props.storage.map(({ id, name, price, amount }, key) => {
+                    return <Item
+                      key={key}
+                      id={key}
+                      handleAmount={this.handleAmount}
+                      amount={amount}
+                      name={name}
+                      price={price}
+                      remove={this.handleRemove}
+                    />
+                  })
                 }
-                )}
+                {/* { this.props.storage ? this.setState({ storage: this.props.storage }) : null} */}
               </tbody>
             </Table>
           </div>

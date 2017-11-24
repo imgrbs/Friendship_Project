@@ -1,6 +1,9 @@
 import React from 'react'
 import ReactTable from 'react-table'
 
+import ModalAdd from './ModalAdd'
+import ModalUpdate from './ModalUpdate'
+
 import axios from '../../lib/axios'
 import { DashboardEnchance } from '../Core/global'
 
@@ -37,7 +40,30 @@ const columns = [
 
 class StockList extends React.Component {
   state = {
-    data: []
+    data: [],
+    modalAdd: false,
+    modalUpdate: false
+  }
+
+  setAdd = () => {
+    this.setState({
+      modalAdd: !this.state.modalAdd
+    })    
+    this.fetchData()
+  }
+
+  setUpdate = () => {
+    this.setState({
+      modalUpdate: !this.state.modalUpdate
+    })
+    this.fetchData()
+  }
+
+  fetchData = async () => {
+    await axios
+       .get(`/products/categories`)
+       .then(({ data }) => this.setState({ data: data.data }))
+       .catch(err => console.log(err)) 
   }
 
   async componentWillMount () {
@@ -54,7 +80,8 @@ class StockList extends React.Component {
           <div className='row'>
             <div className='col-12 d-flex flex-row align-items-center'>
               <h2 className='mr-auto'>Stock</h2>
-              <button className='btn btn-success '>Add Item</button>
+              <button onClick={this.setAdd} className='btn btn-success mr-2 '>Add Item</button>
+              <button onClick={this.setUpdate} className='btn btn-outline-primary '>Update Item</button>
             </div>
             <div className='col-12'>
               <ReactTable
@@ -67,6 +94,14 @@ class StockList extends React.Component {
             </div>
           </div>
         </div>
+        <ModalAdd 
+          open={this.state.modalAdd}
+          handler={this.setAdd}
+          />
+        <ModalUpdate 
+          open={this.state.modalUpdate}
+          handler={this.setUpdate}
+        />
       </DashboardEnchance>
     )
   }

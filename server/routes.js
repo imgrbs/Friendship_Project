@@ -19,6 +19,8 @@ router.route('/categories').get(CategoriesController.getAll)
 // Product
 // ============================================================
 router.route('/buy').post(BillsController.buy)
+router.route('/products').post(ProductsController.create)
+router.route('/products/:id').post(ProductsController.update)
 router.route('/products').get(ProductsController.getAll)
 router.route('/products/categories').get(ProductsController.getAllWithCategories)
 

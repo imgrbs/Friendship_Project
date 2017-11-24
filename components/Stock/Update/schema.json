@@ -1,0 +1,19 @@
+{
+  "title": "Update Item",
+  "type": "object",
+  "required": ["id", "price", "amount"],
+  "properties": {
+    "id": {
+      "type": "number",
+      "title": "Item It"
+    },
+    "amount": {
+      "type": "number",
+      "title": "Item Amount"
+    },
+    "price": {
+      "type": "number",
+      "title": "Item Price"
+    }
+  }
+}
