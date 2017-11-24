@@ -73,6 +73,7 @@ class Seller extends React.Component {
             handleRemove={this.handleRemove}
           />
           <Vending
+            storage={this.state.storage}
             totalAmounts={this.state.currentAmount}
             totalPrices={this.state.totalPrices}
             sellerName={this.props.sellerName}
