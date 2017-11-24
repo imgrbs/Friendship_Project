@@ -64,5 +64,33 @@ module.exports = {
         data: null
       })
     }
+  },
+  getByEmployeeSale: async (req, res) => {
+    product = await Products.getByEmployeeSale()
+    if (product != null) {
+      res.json({
+        status: true,
+        data: product
+      })
+    } else {
+      res.json({
+        status: false,
+        data: null
+      })
+    }
+  },
+  getByEmployeeQuantity: async (req, res) => {
+    product = await Products.getByEmployeeQuantity()
+    if (product != null) {
+      res.json({
+        status: true,
+        data: product
+      })
+    } else {
+      res.json({
+        status: false,
+        data: null
+      })
+    }
   }
 }

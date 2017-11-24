@@ -62,7 +62,7 @@ class UserForm extends React.Component {
           lastName: '',
           role: '',
           email: '',
-          tel: '',
+          telno: '',
           bossId: 0,
           nationId: '',
           address: '',

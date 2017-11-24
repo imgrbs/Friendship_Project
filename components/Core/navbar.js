@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'react-emotion'
 import Router from 'next/router'
-import { compose, withProps, lifecycle } from 'recompose'
+import { compose, withProps } from 'recompose'
 
 const Nav = styled.nav`
   height: 56px;
@@ -30,8 +30,10 @@ const Navbar = ({ name, handler }) => (
 )
 
 const omitProps = withProps({
-  name: JSON.parse(localStorage.getItem('user')).fname,
+  // name: JSON.parse(window.localStorage.getItem('user')).fname,
   handler: handler
 })
 
-export default omitProps(Navbar)
+export default compose(
+  omitProps
+)(Navbar)

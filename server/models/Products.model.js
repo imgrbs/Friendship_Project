@@ -80,5 +80,50 @@ module.exports = {
         reject(err)
       }
     })
+  },
+  getByEmployeeSale: () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let product = await knex
+          .raw(
+            `
+              SELECT fname as "name" ,SUM(total_price) as "totalSale" 
+              FROM Employee emp 
+              join Bill B 
+              ON emp.employee_id = B.employee_id 
+              GROUP BY B.employee_id
+              ORDER BY 2 asc  
+            `
+          )
+          .then(data => data)
+          .catch(err => console.log(err))
+        resolve(product)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+  getByEmployeeQuantity: () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let product = await knex
+          .raw(
+            `
+              SELECT 	fname as "name" ,SUM(quantity) as "totalQuantity" 
+              FROM 	Employee emp 
+              join 	Bill B 
+              ON 	emp.employee_id = B.employee_id 
+              JOIN 	Transaction T 
+              ON 	T.bill_id = B.bill_id GROUP BY B.employee_id
+              ORDER BY 2 asc  
+            `
+          )
+          .then(data => data)
+          .catch(err => console.log(err))
+        resolve(product)
+      } catch (err) {
+        reject(err)
+      }
+    })
   }
 }

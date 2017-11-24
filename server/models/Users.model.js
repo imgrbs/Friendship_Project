@@ -94,11 +94,11 @@ module.exports = {
         let user = await knex
           .raw(
             `
-          SELECT E.employee_id,CONCAT(E.fname,' ',E.lname) as "Employee Name",E.role,CONCAT(B.fname,' ',B.lname)AS "Boss Name",E.telno,E.nation_id,E.address 
-          FROM Employee E 
-          LEFT JOIN Employee B 
-          ON E.boss_id = B.employee_id
-        `
+            SELECT E.employee_id,CONCAT(E.fname,' ',E.lname) as "Employee Name",E.role,CONCAT(B.fname,' ',B.lname)AS "Boss Name",E.telno,E.nation_id,E.address 
+            FROM Employee E 
+            LEFT JOIN Employee B 
+            ON E.boss_id = B.employee_id
+            `
           )
           .then(data => data)
           .catch(err => console.log(err))

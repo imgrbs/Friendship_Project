@@ -24,6 +24,12 @@ router.route('/buy').post(BillsController.buy)
 router.route('/products').post(ProductsController.create)
 router.route('/products/:id').post(ProductsController.update)
 router.route('/products').get(ProductsController.getAll)
+router.route('/products/totalsale').get(ProductsController.getByEmployeeSale)
+router.route('/products/totalquantity').get(ProductsController.getByEmployeeQuantity)
 router.route('/products/categories').get(ProductsController.getAllWithCategories)
+
+// ============================================================
+// Transaction
+// ============================================================
 
 module.exports = router
