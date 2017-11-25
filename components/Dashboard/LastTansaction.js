@@ -11,7 +11,7 @@ class LastTransaction extends React.Component {
                 <tr>
                   <th>#</th>
                   <th>Bill ID</th>
-                  <th>Product Name</th>
+                  <th>Product ID</th>
                   <th>Quantity</th>
                   <th>Created At</th>
                 </tr>

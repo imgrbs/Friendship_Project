@@ -70,7 +70,7 @@ module.exports = {
     if (req.session != null) {
       req.session.destroy()
       req.session = null
-      res.redirect('/logout')
+      res.clearCookie('connect.sid')
     } else {
       res.json({
         status: false,

@@ -2,14 +2,6 @@ import React from 'react'
 
 import Analytic from '../components/Analytic/index'
 
-const AnalyticPage  = ({url : {query}}) => {
-  return (
-    <Analytic {...query} />
-  )
-}
-
-AnalyticPage.getInitialProps = async props => {
-  return { init: true }
-}
+const AnalyticPage = ({ url: { query } }) => <Analytic {...query} />
 
 export default AnalyticPage

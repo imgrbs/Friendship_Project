@@ -14,10 +14,6 @@ const IndexPage = props => (
   </Container>
 )
 
-IndexPage.getInitialProps = async (props) => {
-  return { init: true }
-}
-
 const enchance = lifecycle({
   async componentWillMount () {
     window.location.pathname = '/login'
