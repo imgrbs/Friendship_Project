@@ -1,5 +1,11 @@
 /* thai */
 @font-face {
+  font-family: 'Avenir Next Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Avenir Next Regular'), local('Prompt-Regular'), url('../fonts/Avenir Next Regular.otf');
+}
+@font-face {
   font-family: 'Prompt';
   font-style: normal;
   font-weight: 400;
