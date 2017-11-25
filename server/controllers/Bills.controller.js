@@ -20,5 +20,22 @@ module.exports = {
         data: null
       })
     }
+  },
+  total: async (req, res) => {
+    if (req.body != null) {
+      bill = await Bills.total()
+        .then(value =>
+          res.json({
+            status: true,
+            data: value
+          })
+        )
+        .catch(err => console.log(err))
+    } else {
+      res.json({
+        status: false,
+        data: null
+      })
+    }
   }
 }

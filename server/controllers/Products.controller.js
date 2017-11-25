@@ -51,6 +51,34 @@ module.exports = {
       })
     }
   },
+  total: async (req, res) => {
+    product = await Products.total()
+    if (product != null) {
+      res.json({
+        status: true,
+        data: product
+      })
+    } else {
+      res.json({
+        status: false,
+        data: null
+      })
+    }
+  },
+  topSale: async (req, res) => {
+    product = await Products.topSale()
+    if (product != null) {
+      res.json({
+        status: true,
+        data: product
+      })
+    } else {
+      res.json({
+        status: false,
+        data: null
+      })
+    }
+  },
   getAllWithCategories: async (req, res) => {
     product = await Products.getAllWithCategories()
     if (product != null) {

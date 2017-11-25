@@ -33,7 +33,8 @@ module.exports = {
                       console.log(response[0].product_amount)
                       await knex('Product')
                         .update({
-                          product_amount: response[0].product_amount - val.amount
+                          product_amount:
+                            response[0].product_amount - val.amount
                         })
                         .then(result => result)
                         .catch(err => console.log(err))
@@ -45,6 +46,23 @@ module.exports = {
           )
           .catch(err => console.log(err))
         resolve(bill)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+  total: () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let product = await knex
+          .raw(
+            `
+            SELECT SUM(total_price) as "Total"
+            FROM Bill
+            `
+          )
+          .then(data => data)
+        resolve(product)
       } catch (err) {
         reject(err)
       }

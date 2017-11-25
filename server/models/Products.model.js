@@ -68,6 +68,47 @@ module.exports = {
       }
     })
   },
+  total: () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let product = await knex
+          .raw(
+            `
+            SELECT SUM(quantity) as "Total" FROM Transaction
+            `)
+          .then(data => data)
+        resolve(product)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+  topSale: () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let product = await knex
+          .raw(
+            `
+            SELECT product_name , CURDATE() as "Date"
+            FROM Product 
+            WHERE product_id = 
+              (SELECT product_id 
+               FROM Transaction
+               GROUP BY product_id 
+               HAVING SUM(quantity)=
+                (SELECT SUM(quantity) 
+                 FROM Transaction 
+                 GROUP BY product_id 
+                 ORDER BY 1 DESC 
+                 LIMIT 1))
+            `)
+          .then(data => data)
+        resolve(product)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
   getAllWithCategories: () => {
     return new Promise(async (resolve, reject) => {
       try {
