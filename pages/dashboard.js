@@ -1,10 +1,15 @@
 import React from 'react'
-import {compose} from 'recompose'
-import withAuth from '../lib/withAuth'
+
 import Dashboard from '../components/Dashboard/index'
 
-const DashboardPage = () => (
-  <Dashboard />
-)
+const DashboardPage = ({url : {query}}) => {
+  return (
+    <Dashboard {...query} />
+  )
+}
 
-export default compose(withAuth)(DashboardPage)
+DashboardPage.getInitialProps = async props => {
+  return { init: true }
+}
+
+export default DashboardPage

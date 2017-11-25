@@ -72,6 +72,7 @@ class Block extends React.Component {
   }
 
   async componentWillMount() {
+    console.log('get props ', this.props)
     this.fetchLastTransaction()
     this.fetchTotalAmount()
     this.fetchTotalSale()

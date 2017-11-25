@@ -32,7 +32,7 @@ const items = [
 ]
 
 const NavItem = ({ icon, link, pathname, name }) => (
-  <Link href={link}>
+  <Link prefetch href={link}>
     <a className={`nav-link ${pathname === link ? 'active' : ''}`} href='#'>
       <i className={`fa ${icon} mr-2`} aria-hidden='true' />
       {name}

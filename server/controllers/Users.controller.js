@@ -35,6 +35,7 @@ module.exports = {
         .then(res => res)
       if (result) {
         user = await Users.getEmployeeById(user.user_id)
+        req.session.user = user
         res.json({
           status: true,
           data: user
@@ -51,6 +52,21 @@ module.exports = {
         data: null
       })
     }
+  },
+  logout: async (req, res) => {
+    if (req.session != null) {
+      req.session.destroy()
+      res.redirect('/logout')
+    } else {
+      res.json({
+        status: false,
+        data: 'logout failed.'
+      })
+    }
+    res.json({
+      status: false,
+      data: 'errors, something went wrong.'
+    })
   },
   getAllSelfJoin: async (req, res) => {
     if (req.body != null) {

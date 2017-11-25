@@ -10,6 +10,7 @@ const TransactionsController = require('./controllers/Transactions.controller')
 // User
 // ============================================================
 router.route('/login').post(UsersController.login)
+router.route('/logout').get(UsersController.logout)
 router.route('/users/add').post(UsersController.create)
 router.route('/users/selfjoin').get(UsersController.getAllSelfJoin)
 
