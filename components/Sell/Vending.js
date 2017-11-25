@@ -5,11 +5,22 @@ import colors from '../Core/colors'
 import axios from '../../lib/axios'
 
 const Card = styled.div`
-  height: 100%;
+  min-height: 60vh;
+  border: 0px;
+  background: #fff;
+  border-radius: 2px;
+  font-size: 12px;
+  position: relative;
+  transition: all 0.3s;
+
+  &:hover {
+    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
+  }
 `
 
 const VendingContainer = styled.div`
   position: fixed;
+  margin-top: 2em;
   right: 0;
   height: 75%;
 `
@@ -133,10 +144,15 @@ class Vending extends React.Component {
   }
 
   setModal = async () => {
-    this.setState({
-      check: !this.state.check,
-      background: !this.state.background
-    })
+    if(this.props.totalAmounts > 0) {
+      this.setState({
+        check: !this.state.check,
+        background: !this.state.background
+      })
+      this.props.setErr(false)
+    } else {
+      this.props.setErr(true)
+    }
   }
   
   setResult = async () => {
@@ -172,41 +188,37 @@ class Vending extends React.Component {
 
   render() {
     let { sellerName, totalAmounts, totalPrices } = this.props
-    return (
-      <VendingContainer className="animated slideInRight col-3">
-        <h1>Vending</h1>
+    return <VendingContainer className="animated slideInRight col-4 col-lg-3">
         <Card className="card">
+          <div className="container mt-4">
+            <div className="row">
+              <div className="col-12 text-center">
+                <h3>Vending</h3>
+              </div>
+            </div>
+          </div>
           <div className="card-body col-12 d-flex flex-column align-items-start">
-            <h4 className="card-title">Seller : {sellerName}</h4>
+            <h6>Seller Name</h6>
+            <h4>{sellerName}</h4>
             <div className="container-fluid mb-auto">
               <div className="row align-items-center justify-content-center">
                 <div className="list-group mb-auto col-12">
-                  <button
-                    type="button"
-                    className="list-group-item list-group-item-action active"
-                  >
+                  <button type="button" className="list-group-item list-group-item-action">
                     Total Items : {totalAmounts}
                   </button>
-                  <button
-                    type="button"
-                    className="list-group-item list-group-item-action"
-                  >
+                  <button type="button" className="list-group-item list-group-item-action">
                     Total Prices : {totalPrices}
                   </button>
                 </div>
               </div>
             </div>
-            <div className="container-fluid">
+            <div className="container-fluid mb-2">
               <div className="row justify-content-center">
-                <div className="btn-group col-12" style={{padding: 0}}>
-                  <button
-                    onClick={this.setModal}
-                    className="btn btn-primary col-6">
+                <div className="btn-group col-12" style={{ padding: 0 }}>
+                  <button onClick={this.setModal} className="btn btn-primary col-6">
                     Buy
                   </button>
-                  <button 
-                    onClick={this.props.clearStorage}
-                    className="btn btn-outline-secondary col-6">
+                  <button onClick={this.props.clearStorage} className="btn btn-outline-secondary col-6">
                     Reset
                   </button>
                 </div>
@@ -214,17 +226,8 @@ class Vending extends React.Component {
             </div>
           </div>
         </Card>
-        <Alert 
-          result={this.state.result}
-          check={this.state.check}
-          background={this.state.background}
-          handleClick={this.setModal}
-          handleResult={this.setResult}
-          handleBackground={this.setBackground}
-          handleAccept={this.handleAccept}
-        />
+        <Alert result={this.state.result} check={this.state.check} background={this.state.background} handleClick={this.setModal} handleResult={this.setResult} handleBackground={this.setBackground} handleAccept={this.handleAccept} />
       </VendingContainer>
-    )
   }
 }
 

@@ -7,6 +7,8 @@ const Container = styled.div`
 
 const Dashboard = styled.div`
   margin-top: 56px;
+  padding-right: 2em;
+  padding-left: 2em;
 `
 
 const DashboardEnchance = withProps({
@@ -14,11 +16,21 @@ const DashboardEnchance = withProps({
 })(Dashboard)
 
 const InContainer = styled.div`
+  background: #fff;
+  padding: 2.5em;
+  border-radius: 2px;
+  font-size: 12px;
+  position: relative;
+  transition: all 0.3s;
 
+  &:hover {
+    box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.05);
+  }
 `
 
 export default Container
 
 export {
-  DashboardEnchance
+  DashboardEnchance,
+  InContainer
 }

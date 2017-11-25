@@ -23,7 +23,7 @@ const items = [
     name: 'Analytic'
   },
   {
-    icon: 'fa-user mr-3',
+    icon: 'fa-user',
     link: '/setting',
     name: 'User'
   }
@@ -31,7 +31,7 @@ const items = [
 
 const NavItem = ({ icon, link, pathname, name }) => (
   <a className={`nav-link ${pathname === link ? 'active' : ''}`} href={`${link}`}>
-    <i className={`fa ${icon} mr-2`} aria-hidden='true' />
+    <i className={`ml-2 fa ${icon} mr-3`} aria-hidden='true' />
     {name}
   </a>
 )
@@ -47,6 +47,11 @@ const enchance = lifecycle({
 
 const Sidebar = ({ pathname }) => (
   <nav className='col-3 col-md-2 hidden-xs-down bg-faded sidebar'>
+    <ul className='nav nav-pills flex-column'>
+      <a className='mt-3 col-12 text-center'>
+        <h5>Friendship</h5><h6>System</h6>
+      </a>
+    </ul>
     <ul className='nav nav-pills flex-column'>
       {items.map((props, key) => (
         <NavItem key={key} pathname={pathname} {...props} />

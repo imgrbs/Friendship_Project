@@ -6,6 +6,7 @@ import axios from '../../lib/axios'
 
 const Nav = styled.nav`
   height: 56px;
+  z-index: 1;
 `
 
 const handler = async () => {
@@ -18,10 +19,6 @@ const handler = async () => {
 
 const Navbar = ({ ...props, handler }) => (
   <Nav className='navbar navbar-expand-lg fixed-top'>
-    <a
-      className='navbar-brand'>
-      Friendship System
-    </a>
     <div className='justify-content-flex-end ml-auto form-inline my-2 my-lg-0'>
       <h4 className='mr-3 mt-2'>Hi, {props.user.name}</h4>
       <button onClick={handler} className='btn btn-danger my-2 my-sm-0'>

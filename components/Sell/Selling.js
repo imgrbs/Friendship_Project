@@ -17,11 +17,6 @@ const List = styled.div`
 
 const Table = styled.table`margin-top: 10px;`
 
-const SellingContainer = styled.div`
-  flex: 0 0 71%;
-  max-width: 71%;
-`
-
 const ErrMsg = () => (
   <div className="col-12 text-center">
     <div className="alert alert-danger">
@@ -70,8 +65,7 @@ class Selling extends React.Component {
       name: '',
       price: 0,
       amount: 1
-    },
-    err: false
+    }
   }
 
   async componentWillMount() {
@@ -95,13 +89,9 @@ class Selling extends React.Component {
           amount: 1
         }
       })
-      this.setState({
-        err: false
-      })
+      this.props.setErr(false)
     } else {
-      this.setState({
-        err: true
-      })
+      this.props.setErr(true)
     }
   }
 
@@ -129,14 +119,17 @@ class Selling extends React.Component {
 
   render() {
     return (
-      <SellingContainer className="col-8">
-        <h2>Seller</h2>
+      <div className="col-12">
+        <h5>
+          <i className={`fa fa-usd mr-3`} aria-hidden="true" />
+          Seller
+        </h5>
         <div className="row">
-          { this.state.err ? 
+          { this.props.err ? 
             (<ErrMsg />)
             : (null)
           }
-          <div className="col-10">
+          <div className="col-9 col-lg-10">
             <Autocomplete
               getItemValue={item => {
                 this.getItem(item)
@@ -173,7 +166,7 @@ class Selling extends React.Component {
               }
             />
           </div>
-          <div className="col-2">
+          <div className="col-3 col-lg-2">
             <button
               onClick={this.handleItem}
               className="btn btn-primary col-12"
@@ -213,7 +206,7 @@ class Selling extends React.Component {
             </Table>
           </div>
         </div>
-      </SellingContainer>
+      </div>
     )
   }
 }

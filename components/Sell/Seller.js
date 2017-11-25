@@ -1,9 +1,16 @@
 import React from 'react'
+import styled from 'react-emotion'
 import { withProps } from 'recompose'
-import { DashboardEnchance } from '../Core/global'
+import { DashboardEnchance, InContainer } from '../Core/global'
 
 import Vending from './Vending'
 import Selling from './Selling'
+
+const InContainerStyled = styled(InContainer)`
+  flex: 0 0 71%;
+  max-width: 71%;
+  min-height: 85vh;
+`
 
 class Seller extends React.Component {
   state = {
@@ -12,7 +19,14 @@ class Seller extends React.Component {
     totalPrices: 0,
     currentAmount : 0,
     sellerName: '',
-    clear: false
+    clear: false,
+    err: false
+  }
+
+  setErr = (val) => {
+    this.setState({
+      err : val
+    })
   }
 
   handleAmount = async (id, amount) => {
@@ -78,19 +92,25 @@ class Seller extends React.Component {
     return (
       <DashboardEnchance>
         <div className="row">
+         <InContainerStyled className='col-12 col-lg-8'>
           <Selling
+            err={this.state.err}
             storage={this.state.storage}
             sentClear={this.state.clear}
+            setErr={this.setErr}
             handleStorage={this.handleStorage}
             handlePrice={this.handlePrice}
             handleAmount={this.handleAmount}
             handleRemove={this.handleRemove}
-          />
+            />
+        </InContainerStyled>
           <Vending
+            err={this.state.err}
             clearStorage={this.clearStorage}
             storage={this.state.storage}
             totalAmounts={this.state.currentAmount}
             totalPrices={this.state.totalPrices}
+            setErr={this.setErr}
             sellerName={this.props.user.name}
           />
         </div>
