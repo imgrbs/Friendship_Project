@@ -31,6 +31,7 @@ router.route('/products/totalsale').get(ProductsController.getByEmployeeSale)
 router.route('/products/totalquantity').get(ProductsController.getByEmployeeQuantity)
 router.route('/products/categories').get(ProductsController.getAllWithCategories)
 router.route('/products/:id').post(ProductsController.update)
+router.route('/products/:id').delete(ProductsController.delete)
 
 // ============================================================
 // Bill

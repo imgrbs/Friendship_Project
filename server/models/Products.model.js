@@ -40,16 +40,29 @@ module.exports = {
           })
           .then(data => data)
           .catch(err => err)
-        let createLogger = await knex('Product_logger')
-          .insert({
-            employee_id: data.employee_id,
-            product_id: data.id,
-            amount: data.amount,
-            price: data.price,
-            created_at: date,
-            updated_at: date
-          })
+        let createLogger = await knex('Product_logger').insert({
+          employee_id: data.employee_id,
+          product_id: data.id,
+          amount: data.amount,
+          price: data.price,
+          created_at: date,
+          updated_at: date
+        })
         resolve(createLogger)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+  delete: id => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let product = await knex('Product')
+          .where('product_id', id)
+          .del()
+          .then(res => res)
+          .catch(err => err)
+        resolve(product)
       } catch (err) {
         reject(err)
       }
@@ -75,7 +88,8 @@ module.exports = {
           .raw(
             `
             SELECT SUM(quantity) as "Total" FROM Transaction
-            `)
+            `
+          )
           .then(data => data)
         resolve(product)
       } catch (err) {
@@ -101,7 +115,8 @@ module.exports = {
                  GROUP BY product_id 
                  ORDER BY 1 DESC 
                  LIMIT 1))
-            `)
+            `
+          )
           .then(data => data)
         resolve(product)
       } catch (err) {
@@ -113,7 +128,12 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       try {
         let product = await knex('Product')
-          .join('Category', 'Product.categories_id', '=', 'Category.category_id')
+          .join(
+            'Category',
+            'Product.categories_id',
+            '=',
+            'Category.category_id'
+          )
           .select('*')
           .then(data => data)
         resolve(product)

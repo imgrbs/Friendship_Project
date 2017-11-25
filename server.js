@@ -59,7 +59,6 @@ app.prepare().then(() => {
   })
 
   server.get('/dashboard', middleware, (req, res) => {
-    console.log(req.session)
     return app.render(req, res, '/dashboard', req.session)
   })
 

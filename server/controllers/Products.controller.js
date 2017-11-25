@@ -26,7 +26,26 @@ module.exports = {
       product = await Products.update(data)
         .then(val =>
           res.json({
-            status: val
+            status: true,
+            data: val
+          })
+        )
+        .catch(err => console.log(err))
+    } else {
+      res.json({
+        status: false,
+        data: null
+      })
+    }
+  },
+  delete: async (req, res) => {
+    if (req.body != null) {
+      let {id} = req.params
+      product = await Products.delete(id)
+        .then(val =>
+          res.json({
+            status: true,
+            data: val
           })
         )
         .catch(err => console.log(err))
