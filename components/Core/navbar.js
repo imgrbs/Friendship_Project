@@ -11,7 +11,7 @@ const Nav = styled.nav`
 
 const handler = async () => {
   axios.get('/logout')
-    .then(res => Router.push('/logout'))
+    .then(res => { window.location.pathname = '/logout' })
     .catch(err => console.log(err))
 }
 

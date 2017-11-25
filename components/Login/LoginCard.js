@@ -52,7 +52,7 @@ class LoginCard extends React.Component {
         if (data.data) {
           localStorage.setItem('id', data.data.employee_id)
           localStorage.setItem('user', JSON.stringify(data.data))
-          Router.push('/dashboard')
+          window.location.pathname = '/dashboard'
         } else {
           this.setState({
             err: 'username or password incorrect!',

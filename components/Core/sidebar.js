@@ -1,6 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
-import Router from 'next/router'
 import { compose, lifecycle, withState } from 'recompose'
 
 const items = [
@@ -32,12 +30,12 @@ const items = [
 ]
 
 const NavItem = ({ icon, link, pathname, name }) => (
-  <Link prefetch href={link}>
-    <a className={`nav-link ${pathname === link ? 'active' : ''}`} href='#'>
-      <i className={`fa ${icon} mr-2`} aria-hidden='true' />
-      {name}
-    </a>
-  </Link>
+  // <Link prefetch href={link}>
+  <a className={`nav-link ${pathname === link ? 'active' : ''}`} href={`${link}`}>
+    <i className={`fa ${icon} mr-2`} aria-hidden='true' />
+    {name}
+  </a>
+  // </Link>
 )
 
 const state = withState('pathname', 'setPath', '')
@@ -45,7 +43,7 @@ const state = withState('pathname', 'setPath', '')
 const enchance = lifecycle({
   async componentWillMount () {
     const { setPath } = await this.props
-    setPath(Router.pathname)
+    setPath(window.location.pathname)
   }
 })
 
