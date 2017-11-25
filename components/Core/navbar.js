@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'react-emotion'
-import Router from 'next/router'
 import { compose, withProps } from 'recompose'
 
 import axios from '../../lib/axios'

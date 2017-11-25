@@ -35,10 +35,10 @@
   },
   "scripts": {
     "dev": "next",
-    "build": "NODE_ENV=production next build",
-    "start": "NODE_ENV=production next start",
+    "build": "next build",
+    "start": "next start",
     "server": "nodemon server",
-    "luanch": "NODE_ENV=production node server"
+    "luanch": "node server"
   },
   "devDependencies": {
     "babel-plugin-emotion": "^8.0.9",
