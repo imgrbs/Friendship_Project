@@ -3,6 +3,7 @@ import React from 'react'
 import Dashboard from '../components/Dashboard/index'
 
 const DashboardPage = ({url : {query}}) => {
+  console.log(query)
   return (
     <Dashboard {...query} />
   )

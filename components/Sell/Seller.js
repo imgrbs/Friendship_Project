@@ -91,7 +91,7 @@ class Seller extends React.Component {
             storage={this.state.storage}
             totalAmounts={this.state.currentAmount}
             totalPrices={this.state.totalPrices}
-            sellerName={this.props.sellerName}
+            sellerName={this.props.user.name}
           />
         </div>
       </DashboardEnchance>
@@ -99,8 +99,5 @@ class Seller extends React.Component {
   }
 }
 
-const omitProps = withProps({
-  sellerName: 'Potae'
-})
+export default Seller
 
-export default omitProps(Seller)

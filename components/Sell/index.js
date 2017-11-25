@@ -4,8 +4,8 @@ import withSidebar from '../../lib/withSidebar'
 
 import Seller from '../Sell/Seller'
 
-const Sell = () => (
-  <Seller />
+const Sell = props => (
+  <Seller {...props} />
 )
 
 export default withSidebar(Sell)

@@ -21,7 +21,7 @@ const Navbar = ({ ...props, handler }) => (
       Friendship System
     </a>
     <div className='justify-content-flex-end ml-auto form-inline my-2 my-lg-0'>
-      <h4 className='mr-3 mt-2'>Hi, {props.user.fname}</h4>
+      <h4 className='mr-3 mt-2'>Hi, {props.user.name}</h4>
       <button onClick={handler} className='btn btn-danger my-2 my-sm-0'>
         <i className='fa fa-sign-out mr-2' aria-hidden='true' />
         Logout

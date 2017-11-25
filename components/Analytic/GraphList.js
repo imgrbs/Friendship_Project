@@ -3,6 +3,7 @@ import { Bar } from 'react-chartjs-2'
 
 import axios from '../../lib/axios'
 import { DashboardEnchance } from '../Core/global'
+import TransactionTable from './TransactionTable'
 
 const style = {
   backgroundColor: [
@@ -27,7 +28,8 @@ const style = {
 class GraphList extends React.Component {
   state = {
     dataSale: {},
-    dataQuantity: {}
+    dataQuantity: {},
+    transaction: []
   }
 
   fetchSale = async () => {
@@ -74,12 +76,30 @@ class GraphList extends React.Component {
         }
       })
     })
-    
+  }
+  
+  fetchTransaction = async () => {
+    let {user: {id}} = this.props
+    let transaction = []
+    await axios.get(`/transactions/${id}`)
+    .then(async ({data}) => {
+      await data.data[0].map( (data,key) => {
+        transaction[key] = {
+          ...data,
+          created_at: new Date(data.created_at).toDateString(),
+          updated_at: new Date(data.updated_at).toDateString()
+        }
+      })
+      this.setState({
+        transaction: transaction
+      })
+    })
   }
 
   async componentWillMount() {
     this.fetchQuantity()
     this.fetchSale()
+    this.fetchTransaction()
   }
 
   render() {
@@ -89,13 +109,13 @@ class GraphList extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-6">
-              <Bar height={52.5} width={100} data={this.state.dataSale} />
+              <Bar height={45} width={100} data={this.state.dataSale} />
             </div>
             <div className="col-6">
-              <Bar height={52.5} width={100} data={this.state.dataQuantity} />
+              <Bar height={45} width={100} data={this.state.dataQuantity} />
             </div>
             <div className="col-12">
-              <Bar height={25} width={100} data={this.state.dataSale} />
+              <TransactionTable data={this.state.transaction} />
             </div>
           </div>
         </div>

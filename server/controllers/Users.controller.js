@@ -8,14 +8,12 @@ module.exports = {
   create: async (req, res) => {
     if (req.body != null) {
       let data = await req.body.data
-      await bcrypt.genSalt(saltRounds)
-        .then(salt =>
-          bcrypt.hash(data.password, salt)
-            .then((hash) => {
-              data.password = hash
-              user = Users.create({ data })
-            })
-        )
+      await bcrypt.genSalt(saltRounds).then(salt =>
+        bcrypt.hash(data.password, salt).then(hash => {
+          data.password = hash
+          user = Users.create({ data })
+        })
+      )
       res.json({
         status: true,
         data: user
@@ -31,15 +29,30 @@ module.exports = {
     if (req.body != null) {
       let { data } = req.body
       let user = await Users.getUserByUsername(data.username)
-      const result = await bcrypt.compare(data.password, user.password)
-        .then(res => res)
-      if (result) {
-        user = await Users.getEmployeeById(user.user_id)
-        req.session.user = user
-        res.json({
-          status: true,
-          data: user
-        })
+        .then(call => call)
+        .catch(err => console.log(err))
+      if (user) {
+        await bcrypt
+          .compare(data.password, user.password)
+          .then(async result => {
+            if (result) {
+              user = await Users.getEmployeeById(user.user_id)
+              user = await {
+                id: user.employee_id,
+                name: user.fname
+              }
+              req.session.user = user
+              res.json({
+                status: true,
+                data: user
+              })
+            } else {
+              res.json({
+                status: false,
+                data: null
+              })
+            }
+          })
       } else {
         res.json({
           status: false,
@@ -56,6 +69,7 @@ module.exports = {
   logout: async (req, res) => {
     if (req.session != null) {
       req.session.destroy()
+      req.session = null
       res.redirect('/logout')
     } else {
       res.json({

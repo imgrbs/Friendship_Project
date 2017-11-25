@@ -4,8 +4,8 @@ import withSidebar from '../../lib/withSidebar'
 
 import Block from './Block'
 
-const DashboardPage = props => (
-  <Block {...props} />
+const DashboardPage = () => (
+  <Block />
 )
 
 export default withSidebar(DashboardPage)

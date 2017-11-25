@@ -22,5 +22,27 @@ module.exports = {
         reject(err)
       }
     })
+  },
+  getByEmployeeId: data => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let transaction = await knex
+          .raw(
+            `
+              SELECT * 
+              FROM Transaction T 
+              WHERE T.bill_id = 
+                (SELECT bill_id 
+                FROM Bill B
+                WHERE T.bill_id=B.bill_id AND Employee_id = ${data})
+            `
+          )
+          .then(data => data)
+          .catch(err => console.log(err))
+        resolve(transaction)
+      } catch (err) {
+        reject(err)
+      }
+    })
   }
 }

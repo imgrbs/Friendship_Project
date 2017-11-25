@@ -19,5 +19,28 @@ module.exports = {
         data: null
       })
     }
+  },
+  getByEmployeeId: async (req, res) => {
+    if (req.body != null) {
+      let {id} = req.params
+      transaction = await Transactions.getByEmployeeId(id)
+        .then(data => data)
+        .catch(err => console.log(err))
+      if (transaction) {
+        res.json({
+          status: true,
+          data: transaction
+        })
+      }
+      res.json({
+        status: false,
+        data: null
+      })
+    } else {
+      res.json({
+        status: false,
+        data: null
+      })
+    }
   }
 }

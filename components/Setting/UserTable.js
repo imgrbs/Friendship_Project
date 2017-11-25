@@ -48,7 +48,7 @@ class UserTable extends React.Component {
     return (
       <ReactTable 
         columns={columns}
-        defaultPageSize={5}
+        defaultPageSize={10}
         data={this.state.users}
       />
     )

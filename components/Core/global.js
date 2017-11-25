@@ -13,6 +13,10 @@ const DashboardEnchance = withProps({
   className: 'col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3'
 })(Dashboard)
 
+const InContainer = styled.div`
+
+`
+
 export default Container
 
 export {

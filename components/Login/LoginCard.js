@@ -49,9 +49,7 @@ class LoginCard extends React.Component {
         }
       })
       .then(({ data }) => {
-        if (data.data) {
-          localStorage.setItem('id', data.data.employee_id)
-          localStorage.setItem('user', JSON.stringify(data.data))
+        if (data.status) {
           window.location.pathname = '/dashboard'
         } else {
           this.setState({
@@ -64,7 +62,6 @@ class LoginCard extends React.Component {
   }
 
   render() {
-    let { username, password, err } = this.state
     return (
       <Card className="card animated fadeInUp">
         <Form
@@ -76,7 +73,7 @@ class LoginCard extends React.Component {
           onSubmit={this.sended}
           formData={this.state}
         >
-          <ErrorMsg>{`${err ? err : ''}`}</ErrorMsg>
+          <ErrorMsg>{`${this.state.err ? this.state.err : ''}`}</ErrorMsg>
           <button
             type="submit"
             className={`col-12 btn btn-primary ${this.state.loading

@@ -4,8 +4,8 @@ import withSidebar from '../../lib/withSidebar'
 
 import GraphList from './GraphList'
 
-const Analytic = () => (
-  <GraphList />
+const Analytic = props => (
+  <GraphList {...props} />
 )
 
 export default withSidebar(Analytic)

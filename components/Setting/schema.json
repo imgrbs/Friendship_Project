@@ -13,7 +13,7 @@
     },
     "password": {
       "type": "string",
-      "title": "password",
+      "title": "Password",
       "minLength": 3
     },
     "firstName": {
