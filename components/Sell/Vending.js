@@ -204,7 +204,9 @@ class Vending extends React.Component {
                     className="btn btn-primary col-6">
                     Buy
                   </button>
-                  <button href="#" className="btn btn-outline-secondary col-6">
+                  <button 
+                    onClick={this.props.clearStorage}
+                    className="btn btn-outline-secondary col-6">
                     Reset
                   </button>
                 </div>
