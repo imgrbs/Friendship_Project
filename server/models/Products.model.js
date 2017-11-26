@@ -32,7 +32,7 @@ module.exports = {
           .then(val => val[0].product_amount)
           .catch(err => console.log(err))
         let date = new Date()
-        let product = await knex('Product')
+        await knex('Product')
           .where('product_id', data.id)
           .update({
             product_amount: amount + data.amount,
@@ -127,14 +127,13 @@ module.exports = {
   getAllWithCategories: () => {
     return new Promise(async (resolve, reject) => {
       try {
-        let product = await knex('Product')
-          .join(
-            'Category',
-            'Product.categories_id',
-            '=',
-            'Category.category_id'
-          )
-          .select('*')
+        let product = await knex
+          .raw(`
+            SELECT p.*, c.category_name
+            FROM Product p
+            JOIN Category c
+            ON p.categories_id = c.category_id
+          `)
           .then(data => data)
         resolve(product)
       } catch (err) {

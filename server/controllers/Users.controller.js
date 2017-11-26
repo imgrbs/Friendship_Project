@@ -39,7 +39,7 @@ module.exports = {
               user = await Users.getEmployeeById(user.user_id)
               user = await {
                 id: user.employee_id,
-                name: user.fname
+                name: `${user.fname} ${user.lname}`
               }
               req.session.user = user
               res.json({

@@ -24,7 +24,7 @@ class Block extends React.Component {
               User
             </h5>
             <button onClick={this.setCheck} className="btn btn-primary">
-              <i class="fa fa-plus-circle mr-2" aria-hidden="true" />
+              <i className="fa fa-plus-circle mr-2" aria-hidden="true" />
               Add User
             </button>
           </div>

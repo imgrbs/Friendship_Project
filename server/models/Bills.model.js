@@ -25,17 +25,17 @@ module.exports = {
                   updated_at: date
                 })
                 .then(async call => {
-                  let amount = await knex
+                  await knex
                     .select('product_amount')
                     .from('Product')
                     .where('product_id', val.id)
                     .then(async response => {
-                      console.log(response[0].product_amount)
                       await knex('Product')
                         .update({
-                          product_amount:
-                            response[0].product_amount - val.amount
+                          product_amount: response[0].product_amount - val.amount,
+                          updated_at: new Date()
                         })
+                        .where('product_id', val.id)
                         .then(result => result)
                         .catch(err => console.log(err))
                     })

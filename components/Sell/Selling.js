@@ -186,7 +186,7 @@ class Selling extends React.Component {
                 onClick={this.handleItem}
                 className="btn btn-primary col-12"
               >
-                <i class="fa fa-plus-circle mr-2" aria-hidden="true" />
+                <i className="fa fa-plus-circle mr-2" aria-hidden="true" />
                 Add
               </button>
             </div>

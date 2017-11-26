@@ -19,7 +19,6 @@ class StockList extends React.Component {
       .delete(`/products/${id}`)
       .then(data => {
         this.fetchData()
-        console.log(data)
       })
       .catch(err => console.log(err))
   }
@@ -41,15 +40,24 @@ class StockList extends React.Component {
   fetchData = async () => {
     await axios
       .get(`/products/categories`)
-      .then(({ data }) => this.setState({ data: data.data }))
+      .then( async ({ data }) => {
+        let val = []
+        await data.data[0].map((data, key) => {
+          val[key] = {
+            ...data,
+            created_at: new Date(data.created_at).toString(),
+            updated_at: new Date(data.updated_at).toString()
+          }
+          this.setState({
+            data: val
+          })
+        })
+      })
       .catch(err => console.log(err))
   }
 
   async componentWillMount() {
-    await axios
-      .get(`/products/categories`)
-      .then(({ data }) => this.setState({ data: data.data }))
-      .catch(err => console.log(err))
+    this.fetchData()
   }
 
   render() {
@@ -65,14 +73,14 @@ class StockList extends React.Component {
               onClick={this.setAdd}
               className="btn btn-outline-primary mr-2 "
             >
-              <i class="fa fa-plus-circle mr-2" aria-hidden="true" />
+              <i className="fa fa-plus-circle mr-2" aria-hidden="true" />
               Add Item
             </button>
             <button
               onClick={this.setUpdate}
               className="btn btn-outline-warning "
             >
-              <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>
+              <i className="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>
               Update Item
             </button>
           </div>
@@ -112,7 +120,7 @@ class StockList extends React.Component {
             </div>
           </div>
           <ModalAdd open={this.state.modalAdd} handler={this.setAdd} />
-          <ModalUpdate open={this.state.modalUpdate} handler={this.setUpdate} />
+          <ModalUpdate id={this.props.user.id} open={this.state.modalUpdate} handler={this.setUpdate} />
         </InContainer>
       </DashboardEnchance>
     )

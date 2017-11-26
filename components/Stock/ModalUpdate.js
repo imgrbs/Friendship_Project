@@ -24,14 +24,13 @@ class ModalUpdate extends React.Component {
     await axios
       .post(`/products/${id}`, {
         data: {
-          employee_id: +localStorage.getItem('id'),
+          employee_id: this.props.id,
           ...this.state
         }
       })
       .then(data => {
-        console.log(data)
         this.setState({
-          name: '',
+          id: 0,
           price: 0,
           amount: 0
         })
@@ -51,7 +50,6 @@ class ModalUpdate extends React.Component {
           formData={this.state}
           >
           <ModalButton
-            sended={this.sended}
             text={`Update`}
             handler={this.props.handler}
           />

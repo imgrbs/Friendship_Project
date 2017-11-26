@@ -103,7 +103,8 @@ class Seller extends React.Component {
             totalAmounts={this.state.currentAmount}
             totalPrices={this.state.totalPrices}
             setErr={this.setErr}
-            sellerName={this.props.user.name}
+            name={this.props.user.name}
+            id={this.props.user.id}
           />
         </div>
       </DashboardEnchance>

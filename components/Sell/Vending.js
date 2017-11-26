@@ -176,7 +176,7 @@ class Vending extends React.Component {
   
   handleAccept = async data => {
     let storage = await {
-      employee_id: +localStorage.getItem('id'),
+      employee_id: this.props.id,
       ...this.props
     }
     axios.post('/buy',{
@@ -187,14 +187,14 @@ class Vending extends React.Component {
   }
 
   render() {
-    let { sellerName, totalAmounts, totalPrices } = this.props
+    let { name, totalAmounts, totalPrices } = this.props
     return <VendingContainer className="animated slideInRight col-4 col-lg-3">
         <Card className="card">
           <div className="container mt-4">
             <div className="row">
               <div className="col-12 text-center">
                 <h3>
-                  <i class="fa fa-user-circle mr-3" aria-hidden="true" />
+                  <i className="fa fa-user-circle mr-3" aria-hidden="true" />
                   Vending
                 </h3>
               </div>
@@ -202,7 +202,7 @@ class Vending extends React.Component {
           </div>
           <div className="card-body col-12 d-flex flex-column align-items-start">
             <h6>Seller Name</h6>
-            <h4>{sellerName}</h4>
+            <h4>{name}</h4>
             <div className="container-fluid mb-auto">
               <div className="row align-items-center justify-content-center">
                 <div className="list-group mb-auto col-12">

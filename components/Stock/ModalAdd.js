@@ -38,7 +38,6 @@ class ModalAdd extends React.Component {
         }
       })
       .then(data => {
-        console.log(data)
         this.setState({
           name: '',
           price: 0,
@@ -62,7 +61,6 @@ class ModalAdd extends React.Component {
           formData={this.state}
           >
           <ModalButton
-            sended={this.sended}
             text={`Add`}
             handler={this.props.handler}
           />
