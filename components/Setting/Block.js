@@ -20,7 +20,7 @@ class Block extends React.Component {
         <div className="row mb-3">
           <div className="col-12 d-flex justify-content-center align-items-center">
             <h5 className="mr-auto mb-0">
-              <i className="fa fa-user-o ml-2 mr-3" aria-hidden="true" />
+              <i className="fa fa-group ml-2 mr-3" aria-hidden="true" />
               User
             </h5>
             <button onClick={this.setCheck} className="btn btn-primary">

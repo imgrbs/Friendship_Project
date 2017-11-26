@@ -139,5 +139,19 @@ module.exports = {
         data: null
       })
     }
+  },
+  getByTransactions: async (req, res) => {
+    product = await Products.getByTransactions()
+    if (product != null) {
+      res.json({
+        status: true,
+        data: product
+      })
+    } else {
+      res.json({
+        status: false,
+        data: null
+      })
+    }
   }
 }

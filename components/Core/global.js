@@ -7,8 +7,7 @@ const Container = styled.div`
 
 const Dashboard = styled.div`
   margin-top: 56px;
-  padding-right: 2em;
-  padding-left: 2em;
+  padding: 0 2em 2em 2em;
 `
 
 const DashboardEnchance = withProps({

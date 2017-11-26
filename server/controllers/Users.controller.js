@@ -102,5 +102,27 @@ module.exports = {
         data: null
       })
     }
+  },
+  getByCategory: async (req, res) => {
+    if (req.body != null) {
+      let { data } = req.body
+      console.log(data.id)
+      user = await Users.getByCategory(data.id)
+      if (user != null) {
+        res.json({
+          status: true,
+          data: user
+        })
+      }
+      res.json({
+        status: false,
+        data: null
+      })
+    } else {
+      res.json({
+        status: false,
+        data: null
+      })
+    }
   }
 }

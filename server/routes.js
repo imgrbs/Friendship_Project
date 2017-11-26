@@ -13,6 +13,7 @@ router.route('/login').post(UsersController.login)
 router.route('/logout').get(UsersController.logout)
 router.route('/users/add').post(UsersController.create)
 router.route('/users/selfjoin').get(UsersController.getAllSelfJoin)
+router.route('/users/categories').post(UsersController.getByCategory)
 
 // ============================================================
 // Category
@@ -29,6 +30,7 @@ router.route('/products/topsale').get(ProductsController.topSale)
 router.route('/products/total').get(ProductsController.total)
 router.route('/products/totalsale').get(ProductsController.getByEmployeeSale)
 router.route('/products/totalquantity').get(ProductsController.getByEmployeeQuantity)
+router.route('/products/transactions').get(ProductsController.getByTransactions)
 router.route('/products/categories').get(ProductsController.getAllWithCategories)
 router.route('/products/:id').post(ProductsController.update)
 router.route('/products/:id').delete(ProductsController.delete)

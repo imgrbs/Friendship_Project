@@ -46,7 +46,8 @@ class UserTable extends React.Component {
 
   render() {
     return (
-      <ReactTable 
+      <ReactTable
+        filterable={!false} 
         columns={columns}
         defaultPageSize={13}
         data={this.state.users}

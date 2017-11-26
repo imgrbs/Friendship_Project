@@ -6,7 +6,7 @@ module.exports = {
       try {
         let categorie = await knex
           .select('*')
-          .from('Categories')
+          .from('Category')
           .then(data => data)
         resolve(categorie)
       } catch (err) {

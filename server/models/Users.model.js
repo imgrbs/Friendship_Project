@@ -107,5 +107,34 @@ module.exports = {
         reject(err)
       }
     })
+  },
+  getByCategory: data => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let user = await knex
+          .raw(
+            `
+            SELECT Employee.fname,SUM(quantity*Product.product_price) as "Total Sales" 
+            FROM Transaction
+            JOIN Product
+            on Product.product_id = Transaction.product_id
+            JOIN Category
+            ON Product.categories_id = Category.category_id
+            JOIN Bill
+            ON Bill.bill_id=Transaction.bill_id
+            JOIN Employee
+            ON Employee.employee_id=Bill.employee_id
+            WHERE Category.category_id = ${data}
+            GROUP BY Employee.employee_id
+            ORDER BY 2 desc
+            `
+          )
+          .then(data => data)
+          .catch(err => console.log(err))
+        resolve(user)
+      } catch (err) {
+        reject(err)
+      }
+    })
   }
 }

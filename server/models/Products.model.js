@@ -170,13 +170,34 @@ module.exports = {
         let product = await knex
           .raw(
             `
-              SELECT 	fname as "name" ,SUM(quantity) as "totalQuantity" 
-              FROM 	Employee emp 
-              join 	Bill B 
-              ON 	emp.employee_id = B.employee_id 
-              JOIN 	Transaction T 
-              ON 	T.bill_id = B.bill_id GROUP BY B.employee_id
+              SELECT fname as "name" ,SUM(quantity) as "totalQuantity" 
+              FROM Employee emp 
+              join Bill B 
+              ON emp.employee_id = B.employee_id 
+              JOIN Transaction T 
+              ON T.bill_id = B.bill_id GROUP BY B.employee_id
               ORDER BY 2 asc  
+            `
+          )
+          .then(data => data)
+          .catch(err => console.log(err))
+        resolve(product)
+      } catch (err) {
+        reject(err)
+      }
+    })
+  },
+  getByTransactions: () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        let product = await knex
+          .raw(
+            `
+              SELECT product_name,COUNT(*) as "Transactions",SUM(quantity) as "Total Quantity", SUM(quantity*product_price) as "Total Sales"
+              FROM Transaction 
+              JOIN Product 
+              ON Product.product_id=Transaction.product_id 
+              GROUP BY Transaction.product_id
             `
           )
           .then(data => data)
