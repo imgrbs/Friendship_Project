@@ -11,7 +11,7 @@ module.exports = {
               FROM Transaction T
               JOIN Product P
               ON T.product_id= P.product_id
-              ORDER BY created_at desc
+              ORDER BY bill_id desc
               LIMIT 10
             `
           )
