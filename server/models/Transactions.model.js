@@ -12,7 +12,7 @@ module.exports = {
               JOIN Product P
               ON T.product_id= P.product_id
               ORDER BY created_at desc
-              LIMIT 5
+              LIMIT 10
             `
           )
           .then(data => data)
