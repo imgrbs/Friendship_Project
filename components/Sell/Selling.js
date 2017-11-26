@@ -155,7 +155,7 @@ class Selling extends React.Component {
                     <span className="input-group-addon">
                       <i className="fa fa-search" aria-hidden="true" />
                     </span>
-                    <input {...props} />
+                    <input style={{zIndex: 0}} {...props} />
                   </div>
                 )}
                 renderMenu={children => <div className="">{children}</div>}
