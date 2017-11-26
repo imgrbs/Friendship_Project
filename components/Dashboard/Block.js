@@ -122,6 +122,7 @@ class Block extends React.Component {
           Lasted Transaction
           <span className="ml-3 mr-auto badge badge-success">New</span>
           <span onClick={this.fetchLastTransaction} className="btn badge badge-warning text-white">
+            <i class="fa fa-refresh mr-2" aria-hidden="true" />
             Reload
           </span>
         </h5>

@@ -234,15 +234,10 @@ class GraphList extends React.Component {
             </div>
             <div className="col-12 mt-3 md-3">
               <h5>
-                <i className={`fa fa-tags mr-3`} aria-hidden="true" />
+                <i className={`fa fa-flag mr-3`} aria-hidden="true" />
                 Total Sales of Category
               </h5>
-              <InContainer
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column'
-                }}
-              >
+              <InContainer style={{ display: 'flex', flexDirection: 'column' }}>
                 <Autocomplete
                   readonly
                   inputProps={{
@@ -250,7 +245,14 @@ class GraphList extends React.Component {
                   }}
                   getItemValue={item => item.category_name}
                   items={this.state.categories}
-                  renderInput={props => <input {...props} readOnly/>}
+                  renderInput={props => (
+                    <div className="input-group">
+                      <span className="input-group-addon">
+                        <i className="fa fa-search" aria-hidden="true" />
+                      </span>
+                      <input {...props} readOnly />
+                    </div>
+                  )}
                   renderMenu={children => <div>{children}</div>}
                   renderItem={(item, isHighlighted) => (
                     <div key={item.category_id}>

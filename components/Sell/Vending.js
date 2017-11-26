@@ -193,7 +193,10 @@ class Vending extends React.Component {
           <div className="container mt-4">
             <div className="row">
               <div className="col-12 text-center">
-                <h3>Vending</h3>
+                <h3>
+                  <i class="fa fa-user-circle mr-3" aria-hidden="true" />
+                  Vending
+                </h3>
               </div>
             </div>
           </div>

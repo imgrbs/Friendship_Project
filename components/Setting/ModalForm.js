@@ -9,6 +9,8 @@ const ModalContainer = styled.div`
 `
 
 const Modal = styled.div`
+  padding: 1em 6em;
+  height: 100vh;
   display: ${props => props.check ? 'block' : 'none'};
   background: ${colors.modalBackground};
 `

@@ -84,13 +84,13 @@ class UserForm extends React.Component {
         onSubmit={this.sended}
         formData={this.state}
       >
-      <div className="container">
+      <div style={{marginTop:'-1.5em'}} className="container">
         <div className="row">
           <div className="col-12 d-flex justify-content-center align-items-center">
             <button
               type="submit"
               style={{ width: '99px' }}
-              className="btn btn-primary btn-lg mr-3"
+              className="btn btn-primary mr-3"
             >
               Add
             </button>
@@ -98,7 +98,7 @@ class UserForm extends React.Component {
               type="button"
               onClick={this.props.handler}
               style={{ width: '99px' }}
-              className="btn btn-secondary btn-lg"
+              className="btn btn-outline-secondary"
             >
               Close
             </button>

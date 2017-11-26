@@ -65,12 +65,14 @@ class StockList extends React.Component {
               onClick={this.setAdd}
               className="btn btn-outline-primary mr-2 "
             >
+              <i class="fa fa-plus-circle mr-2" aria-hidden="true" />
               Add Item
             </button>
             <button
               onClick={this.setUpdate}
-              className="btn btn-outline-success "
+              className="btn btn-outline-warning "
             >
+              <i class="fa fa-pencil-square-o mr-2" aria-hidden="true"></i>
               Update Item
             </button>
           </div>

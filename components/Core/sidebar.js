@@ -1,6 +1,8 @@
 import React from 'react'
 import { compose, lifecycle, withState } from 'recompose'
 
+import colors from './colors'
+
 const items = [
   {
     icon: 'fa-television',
@@ -49,7 +51,9 @@ const Sidebar = ({ pathname }) => (
   <nav className='col-3 col-md-2 hidden-xs-down bg-faded sidebar'>
     <ul className='nav nav-pills flex-column'>
       <a className='mt-3 col-12 text-center'>
-        <h5>Friendship</h5><h6>System</h6>
+        <i style={{color: colors.red}} className='fa fa-heart' aria-hidden='true' />
+        <h5>Friendship</h5>
+        <h6>System</h6>
       </a>
     </ul>
     <ul className='nav nav-pills flex-column'>

@@ -22,12 +22,14 @@ const List = styled.div`
   background: ${props => (props.isHighlighted ? 'lightgray' : 'white')};
 `
 
-const Table = styled.table`margin-top: 10px;`
+const Table = styled.table`
+  margin-top: 10px;
+`
 
 const ErrMsg = () => (
   <div className="col-12 text-center">
     <div className="alert alert-danger">
-      <div style={{color: colors.red}}>Error, Can't add empty item.</div>
+      <div style={{ color: colors.red }}>Error, Can't add empty item.</div>
     </div>
   </div>
 )
@@ -38,12 +40,12 @@ const matchStateToTerm = (state, value) => {
 
 const Item = ({ id, name, price, remove, amount, handleAmount }) => (
   <tr>
-    <th scope="row">{id+1}</th>
+    <th scope="row">{id + 1}</th>
     <td>{name}</td>
     <td>{price}</td>
     <td>
       <input
-        min='1'
+        min="1"
         value={amount}
         onChange={e => handleAmount(id, e.target.value)}
         type="number"
@@ -51,7 +53,7 @@ const Item = ({ id, name, price, remove, amount, handleAmount }) => (
       />
     </td>
     <td>
-      <button onClick={()=>remove(id)} className="btn btn-danger">
+      <button onClick={() => remove(id)} className="btn btn-danger">
         Remove
       </button>
     </td>
@@ -110,7 +112,7 @@ class Selling extends React.Component {
     this.props.handlePrice(minusPrice)
     this.props.handleRemove(id)
   }
-  
+
   handleAmount = async (id, value) => {
     let storage = this.props.storage
     storage[id].amount = parseInt(value)
@@ -118,7 +120,7 @@ class Selling extends React.Component {
     this.props.handleAmount(id, parseInt(value))
   }
 
-  getItem = (val) => {
+  getItem = val => {
     this.setState({
       dumpValue: val
     })
@@ -133,11 +135,8 @@ class Selling extends React.Component {
         </h5>
         <InContainerStyled>
           <div className="row">
-            { this.props.err ? 
-              (<ErrMsg />)
-              : (null)
-            }
-            <div className="col-9 col-lg-10">
+            {this.props.err ? <ErrMsg /> : null}
+            <div className="col-8 col-lg-9">
               <Autocomplete
                 getItemValue={item => {
                   this.getItem(item)
@@ -151,6 +150,14 @@ class Selling extends React.Component {
                   width: '100%'
                 }}
                 inputProps={{ className: 'form-control col-12' }}
+                renderInput={props => (
+                  <div className="input-group">
+                    <span className="input-group-addon">
+                      <i className="fa fa-search" aria-hidden="true" />
+                    </span>
+                    <input {...props} />
+                  </div>
+                )}
                 renderMenu={children => <div className="">{children}</div>}
                 renderItem={(item, isHighlighted) => (
                   <List key={item.product_id} isHighlighted={isHighlighted}>
@@ -158,27 +165,28 @@ class Selling extends React.Component {
                   </List>
                 )}
                 value={this.state.value.name}
-                onChange={(e) => this.setState({value:{name:e.target.value}})}
-                onSelect={
-                  async () => { 
-                    let {dumpValue} = this.state
-                    await this.setState({
-                      value: {
-                        id: dumpValue.product_id,
-                        name: dumpValue.product_name,
-                        price: dumpValue.product_price,
-                        amount: 1
-                      }
-                    })
-                  }
+                onChange={e =>
+                  this.setState({ value: { name: e.target.value } })
                 }
+                onSelect={async () => {
+                  let { dumpValue } = this.state
+                  await this.setState({
+                    value: {
+                      id: dumpValue.product_id,
+                      name: dumpValue.product_name,
+                      price: dumpValue.product_price,
+                      amount: 1
+                    }
+                  })
+                }}
               />
             </div>
-            <div className="col-3 col-lg-2">
+            <div className="col-4 col-lg-3">
               <button
                 onClick={this.handleItem}
                 className="btn btn-primary col-12"
               >
+                <i class="fa fa-plus-circle mr-2" aria-hidden="true" />
                 Add
               </button>
             </div>
@@ -196,20 +204,21 @@ class Selling extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {
-                    this.props.storage.map(({ id, name, price, amount }, key) => {
-                      return <Item
-                        key={key}
-                        id={key}
-                        handleAmount={this.handleAmount}
-                        amount={amount}
-                        name={name}
-                        price={price}
-                        remove={this.handleRemove}
-                      />
-                    })
-                  }
-                  {/* { this.props.storage ? this.setState({ storage: this.props.storage }) : null} */}
+                  {this.props.storage.map(
+                    ({ id, name, price, amount }, key) => {
+                      return (
+                        <Item
+                          key={key}
+                          id={key}
+                          handleAmount={this.handleAmount}
+                          amount={amount}
+                          name={name}
+                          price={price}
+                          remove={this.handleRemove}
+                        />
+                      )
+                    }
+                  )}
                 </tbody>
               </Table>
             </div>
