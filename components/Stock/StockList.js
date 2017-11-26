@@ -5,7 +5,7 @@ import ModalAdd from './ModalAdd'
 import ModalUpdate from './ModalUpdate'
 
 import axios from '../../lib/axios'
-import { DashboardEnchance } from '../Core/global'
+import { DashboardEnchance, InContainer } from '../Core/global'
 
 class StockList extends React.Component {
   state = {
@@ -15,7 +15,6 @@ class StockList extends React.Component {
   }
 
   handlerDelete = async id => {
-    console.log(id)
     await axios
       .delete(`/products/${id}`)
       .then(data => {
@@ -56,50 +55,63 @@ class StockList extends React.Component {
   render() {
     return (
       <DashboardEnchance>
-        <div className="container">
-          <div className="row">
-            <div className="col-12 d-flex flex-row align-items-center">
-              <h2 className="mr-auto">Stock</h2>
-              <button onClick={this.setAdd} className="btn btn-success mr-2 ">
-                Add Item
-              </button>
-              <button onClick={this.setUpdate} className="btn btn-primary ">
-                Update Item
-              </button>
-            </div>
-            <div className="col-12">
-              <ReactTable
-                filterable={!false}
-                minRows={8}
-                defaultPageSize={8}
-                data={this.state.data}
-                columns={[
-                  { Header: 'Item ID', accessor: 'product_id' },
-                  { Header: 'Item Name', accessor: 'product_name' },
-                  { Header: 'Item Price', accessor: 'product_price' },
-                  { Header: 'Item Amount', accessor: 'product_amount' },
-                  { Header: 'Item Type', accessor: 'category_name' },
-                  { Header: 'Created Date', accessor: 'created_at' },
-                  { Header: 'Updated Date', accessor: 'updated_at' },
-                  {
-                    Header: 'Delete',
-                    accessor: 'product_id',
-                    Cell: ({ value }) => (
-                      <button
-                        onClick={() => this.handlerDelete(value)}
-                        className="btn btn-danger col-12"
-                      >
-                        DELETE
-                      </button>
-                    )
-                  }
-                ]}
-              />
-            </div>
+        <div className="row">
+          <div className="mb-3 col-12 d-flex flex-row align-items-center">
+            <h5 className="mr-auto mb-0">
+              <i className="fa fa-archive ml-2 mr-3" aria-hidden="true" />
+              Stock
+            </h5>
+            <button
+              onClick={this.setAdd}
+              className="btn btn-outline-primary mr-2 "
+            >
+              Add Item
+            </button>
+            <button
+              onClick={this.setUpdate}
+              className="btn btn-outline-success "
+            >
+              Update Item
+            </button>
           </div>
         </div>
-        <ModalAdd open={this.state.modalAdd} handler={this.setAdd} />
-        <ModalUpdate open={this.state.modalUpdate} handler={this.setUpdate} />
+        <InContainer>
+          <div className="container">
+            <div className="row">
+              <div className="col-12">
+                <ReactTable
+                  filterable={!false}
+                  minRows={7}
+                  defaultPageSize={7}
+                  data={this.state.data}
+                  columns={[
+                    { Header: 'Item ID', accessor: 'product_id' },
+                    { Header: 'Item Name', accessor: 'product_name' },
+                    { Header: 'Item Price', accessor: 'product_price' },
+                    { Header: 'Item Amount', accessor: 'product_amount' },
+                    { Header: 'Item Type', accessor: 'category_name' },
+                    { Header: 'Created Date', accessor: 'created_at' },
+                    { Header: 'Updated Date', accessor: 'updated_at' },
+                    {
+                      Header: 'Delete',
+                      accessor: 'product_id',
+                      Cell: ({ value }) => (
+                        <button
+                          onClick={() => this.handlerDelete(value)}
+                          className="btn btn-danger col-12"
+                        >
+                          DELETE
+                        </button>
+                      )
+                    }
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+          <ModalAdd open={this.state.modalAdd} handler={this.setAdd} />
+          <ModalUpdate open={this.state.modalUpdate} handler={this.setUpdate} />
+        </InContainer>
       </DashboardEnchance>
     )
   }

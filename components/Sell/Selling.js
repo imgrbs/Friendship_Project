@@ -2,9 +2,16 @@ import React from 'react'
 import styled from 'react-emotion'
 import Autocomplete from 'react-autocomplete'
 
-import colors from '../Core/colors'
-import Vending from './Vending'
 import axios from '../../lib/axios'
+import colors from '../Core/colors'
+import { InContainer } from '../Core/global'
+import Vending from './Vending'
+
+const InContainerStyled = styled(InContainer)`
+  flex: 0 0 71%;
+  max-width: 71%;
+  min-height: 85vh;
+`
 
 const List = styled.div`
   margin: 0;
@@ -124,88 +131,90 @@ class Selling extends React.Component {
           <i className={`fa fa-usd mr-3`} aria-hidden="true" />
           Seller
         </h5>
-        <div className="row">
-          { this.props.err ? 
-            (<ErrMsg />)
-            : (null)
-          }
-          <div className="col-9 col-lg-10">
-            <Autocomplete
-              getItemValue={item => {
-                this.getItem(item)
-                return item.product_name
-              }}
-              items={this.state.items}
-              shouldItemRender={matchStateToTerm}
-              wrapperStyle={{
-                position: 'relative',
-                display: 'inline-block',
-                width: '100%'
-              }}
-              inputProps={{ className: 'form-control col-12' }}
-              renderMenu={children => <div className="">{children}</div>}
-              renderItem={(item, isHighlighted) => (
-                <List key={item.product_id} isHighlighted={isHighlighted}>
-                  {item.product_name}
-                </List>
-              )}
-              value={this.state.value.name}
-              onChange={(e) => this.setState({value:{name:e.target.value}})}
-              onSelect={
-                async () => { 
-                  let {dumpValue} = this.state
-                  await this.setState({
-                    value: {
-                      id: dumpValue.product_id,
-                      name: dumpValue.product_name,
-                      price: dumpValue.product_price,
-                      amount: 1
-                    }
-                  })
+        <InContainerStyled>
+          <div className="row">
+            { this.props.err ? 
+              (<ErrMsg />)
+              : (null)
+            }
+            <div className="col-9 col-lg-10">
+              <Autocomplete
+                getItemValue={item => {
+                  this.getItem(item)
+                  return item.product_name
+                }}
+                items={this.state.items}
+                shouldItemRender={matchStateToTerm}
+                wrapperStyle={{
+                  position: 'relative',
+                  display: 'inline-block',
+                  width: '100%'
+                }}
+                inputProps={{ className: 'form-control col-12' }}
+                renderMenu={children => <div className="">{children}</div>}
+                renderItem={(item, isHighlighted) => (
+                  <List key={item.product_id} isHighlighted={isHighlighted}>
+                    {item.product_name}
+                  </List>
+                )}
+                value={this.state.value.name}
+                onChange={(e) => this.setState({value:{name:e.target.value}})}
+                onSelect={
+                  async () => { 
+                    let {dumpValue} = this.state
+                    await this.setState({
+                      value: {
+                        id: dumpValue.product_id,
+                        name: dumpValue.product_name,
+                        price: dumpValue.product_price,
+                        amount: 1
+                      }
+                    })
+                  }
                 }
-              }
-            />
+              />
+            </div>
+            <div className="col-3 col-lg-2">
+              <button
+                onClick={this.handleItem}
+                className="btn btn-primary col-12"
+              >
+                Add
+              </button>
+            </div>
           </div>
-          <div className="col-3 col-lg-2">
-            <button
-              onClick={this.handleItem}
-              className="btn btn-primary col-12"
-            >
-              Add
-            </button>
+          <div className="row">
+            <div className="col-12">
+              <Table className="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th>Item Name</th>
+                    <th>Item Price</th>
+                    <th scope="col">Item Amount</th>
+                    <th scope="col">{null}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    this.props.storage.map(({ id, name, price, amount }, key) => {
+                      return <Item
+                        key={key}
+                        id={key}
+                        handleAmount={this.handleAmount}
+                        amount={amount}
+                        name={name}
+                        price={price}
+                        remove={this.handleRemove}
+                      />
+                    })
+                  }
+                  {/* { this.props.storage ? this.setState({ storage: this.props.storage }) : null} */}
+                </tbody>
+              </Table>
+            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-12">
-            <Table className="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th>Item Name</th>
-                  <th>Item Price</th>
-                  <th scope="col">Item Amount</th>
-                  <th scope="col">{null}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  this.props.storage.map(({ id, name, price, amount }, key) => {
-                    return <Item
-                      key={key}
-                      id={key}
-                      handleAmount={this.handleAmount}
-                      amount={amount}
-                      name={name}
-                      price={price}
-                      remove={this.handleRemove}
-                    />
-                  })
-                }
-                {/* { this.props.storage ? this.setState({ storage: this.props.storage }) : null} */}
-              </tbody>
-            </Table>
-          </div>
-        </div>
+        </InContainerStyled>
       </div>
     )
   }

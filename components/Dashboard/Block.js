@@ -28,7 +28,7 @@ const Card = ({ color, icon, head, value, text }) => (
     <CardStyled className={`card mb-3`}>
       <div className="row">
         <div className="col-12 col-lg-4 d-flex justify-content-center align-items-center">
-          <h1 style={{color:color}}>
+          <h1 style={{ color: color }}>
             <i className={`fa ${icon}`} aria-hidden="true" />
           </h1>
         </div>

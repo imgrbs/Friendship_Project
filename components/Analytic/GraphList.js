@@ -2,7 +2,7 @@ import React from 'react'
 import { Bar } from 'react-chartjs-2'
 
 import axios from '../../lib/axios'
-import { DashboardEnchance } from '../Core/global'
+import { DashboardEnchance, InContainer } from '../Core/global'
 import TransactionTable from './TransactionTable'
 
 const style = {
@@ -103,24 +103,41 @@ class GraphList extends React.Component {
   }
 
   render() {
-    return (
-      <DashboardEnchance>
-        <h2>Analytics</h2>
+    return <DashboardEnchance>
         <div className="container">
           <div className="row">
-            <div className="col-6">
-              <Bar height={45} width={100} data={this.state.dataSale} />
-            </div>
-            <div className="col-6">
-              <Bar height={45} width={100} data={this.state.dataQuantity} />
-            </div>
             <div className="col-12">
-              <TransactionTable data={this.state.transaction} />
+              <h5>
+                <i className={`fa fa-area-chart mr-3`} aria-hidden="true" />
+                Analytic
+              </h5>
             </div>
           </div>
         </div>
+          <div className="container">
+            <div className="row">
+              <div className="col-6 mb-3">
+                <InContainer>
+                  <Bar height={45} width={100} data={this.state.dataSale} />
+                </InContainer>
+              </div>
+              <div className="col-6 mb-3">
+                <InContainer>
+                  <Bar height={45} width={100} data={this.state.dataQuantity} />
+                </InContainer>
+              </div>
+              <div className="col-12">
+                <h5>
+                  <i className={`fa fa-tags mr-3`} aria-hidden="true" />
+                  Your Transaction
+                </h5>
+                <InContainer>
+                  <TransactionTable data={this.state.transaction} />
+                </InContainer>
+              </div>
+            </div>
+          </div>
       </DashboardEnchance>
-    )
   }
 }
 
