@@ -27,12 +27,12 @@ const Card = ({ color, icon, head, value, text }) => (
   <div className="btn animated fadeInUp col-12 col-lg-4 text-center">
     <CardStyled className={`card mb-3`}>
       <div className="row">
-        <div className="col-12 col-lg-4 d-flex justify-content-center align-items-center">
+        <div className="col-12 col-lg-3 d-flex justify-content-center align-items-center">
           <h1 style={{ color: color }}>
             <i className={`fa ${icon}`} aria-hidden="true" />
           </h1>
         </div>
-        <div className="col-12 col-lg-8 text-center">
+        <div className="col-12 col-lg-9 text-center">
           <div className={`card-body`}>
             <h6 className="card-title">{head}</h6>
             <h3 className="card-text">{value}</h3>
