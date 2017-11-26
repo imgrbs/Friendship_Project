@@ -36,7 +36,7 @@ const Card = ({ color, icon, head, value, text }) => (
           <div className={`card-body`}>
             <h6 className="card-title">{head}</h6>
             <h3 className="card-text">{value}</h3>
-            <h6>{text}</h6>
+            <h6 style={{fontSize:'0.9rem'}}>{text}</h6>
           </div>
         </div>
       </div>
